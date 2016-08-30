@@ -11,3 +11,17 @@ GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#Servicios Pozos
+GET     /pozos                  controllers.PozoController.getPozos()
+GET     /pozo/:id               controllers.PozoController.getPozo(id : Long)
+POST    /pozo                   controllers.PozoController.createPozo()
+DELETE  /pozo/:id               controllers.PozoController.deletePozo(id: Long)
+PUT     /pozo/:id               controllers.PozoController.updatePozo(id : Long)
+
+#Servicios Sensores
+GET     /sensores                  controllers.PozoController.getPozos()
+GET     /sensor/:id               controllers.PozoController.getPozo(id : Long)
+POST    /sens                   controllers.PozoController.createPozo()
+DELETE  /pozo/:id               controllers.PozoController.deletePozo(id: Long)
+PUT     /pozo/:id               controllers.PozoController.updatePozo(id : Long)
