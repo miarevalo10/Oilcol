@@ -1,5 +1,7 @@
 package mock;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +30,10 @@ public class PozoEntity {
 
     private Long idCampo;
 
-    private SensorEntity sensorCaudal;
-    private SensorEntity sensorTemperatura;
-    private SensorEntity sensorConsumo;
-    private SensorEntity sensorEmergencia;
+//    private SensorEntity sensorCaudal;
+//    private SensorEntity sensorTemperatura;
+//    private SensorEntity sensorConsumo;
+//    private SensorEntity sensorEmergencia;
 
 
     //    /**
@@ -90,51 +92,66 @@ public class PozoEntity {
     public Long getIdCampo(){return idCampo;}
 
     public void setIdCampo(Long id){this.idCampo=id;}
-
-    public double getCaudal() { return sensorCaudal.getUltimo(); }
-
-    public void setCaudal(SensorEntity caudal) { this.sensorCaudal = caudal; }
-
-    public double getConsumoEnergia() { return sensorConsumo.getUltimo(); }
-
-    public void setConsumoEnergia(SensorEntity consumoEnergia) { this.sensorConsumo = consumoEnergia; }
-
-    public double getTemperatura() { return sensorTemperatura.getUltimo(); }
-
-    public void setTemperatura(SensorEntity temperatura) { this.sensorTemperatura = temperatura; }
+//
+//    public double getCaudal() { return sensorCaudal.getUltimo(); }
+//
+//    public void setCaudal(SensorEntity caudal) { this.sensorCaudal = caudal; }
+//
+//    public double getConsumoEnergia() { return sensorConsumo.getUltimo(); }
+//
+//    public void setConsumoEnergia(SensorEntity consumoEnergia) { this.sensorConsumo = consumoEnergia; }
+//
+//    public double getTemperatura() { return sensorTemperatura.getUltimo(); }
+//
+//    public void setTemperatura(SensorEntity temperatura) { this.sensorTemperatura = temperatura; }
 
     public EstadoPozo getEstado() { return estado; }
 
     public void setEstado(EstadoPozo estado) { this.estado = estado; }
 
-    public double getEmergencia() { return sensorEmergencia.getUltimo(); }
-
-    public void setEmergencia(SensorEntity emergencia) { this.sensorEmergencia = emergencia; }
+//    public double getEmergencia() { return sensorEmergencia.getUltimo(); }
+//
+//    public void setEmergencia(SensorEntity emergencia) { this.sensorEmergencia = emergencia; }
 
     public String toString() {
         return "PozoEntity{" +
                 "id=" + id +
                 "idCampo= " + idCampo+
-                ", caudal ='" + getCaudal() +
-                ", consumo de energía=" + getConsumoEnergia() +
-                ", temperatura =" + getTemperatura() +
+                //", caudal ='" + sensorCaudal.getUltimo() +
+                //", consumo de energía=" + sensorConsumo.getUltimo() +
+                //", temperatura =" + sensorTemperatura.getUltimo() +
                 ", estado=" + estado +
                 '}';
     }
 
     public static List<PozoEntity> lista = new ArrayList<>();
 
+    public static void invariante(){
+        if(lista.size()==0){
+            lista.add(new PozoEntity(new Long(1), new Long(1), EstadoPozo.ABIERTO));
+            lista.add(new PozoEntity(new Long(2), new Long(2), EstadoPozo.PARADO));
+            lista.add(new PozoEntity(new Long(3), new Long(3), EstadoPozo.ABIERTO));
+            lista.add(new PozoEntity(new Long(1), new Long(4), EstadoPozo.ABIERTO));
+            lista.add(new PozoEntity(new Long(1), new Long(5), EstadoPozo.PRODUCCION));
+            lista.add(new PozoEntity(new Long(2), new Long(6), EstadoPozo.PRODUCCION));
+            lista.add(new PozoEntity(new Long(1), new Long(7), EstadoPozo.ABIERTO));
+        }
+    }
+
     public static List<PozoEntity> get(Long idCampo){
+        invariante();
         List<PozoEntity> rta = new ArrayList<>();
         for (int i = 0; i<lista.size(); i++){
             PozoEntity actual = lista.get(i);
-            if(actual.getIdCampo() == idCampo)
+            if(actual.getIdCampo().equals(idCampo)) {
                 rta.add(actual);
+            }
         }
         return rta;
     }
 
     public static PozoEntity getAlone(Long id){
+        invariante();
         PozoEntity rta = null;
         for(int i = 0; i< lista.size() && rta == null;i++){
             PozoEntity actual = lista.get(i);

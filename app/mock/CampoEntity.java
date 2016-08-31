@@ -15,14 +15,10 @@ public class CampoEntity {
 
     private Long id;
 
-    private List<PozoEntity> pozos;
-
     private RegionCampo region;
 
-    public CampoEntity()
-    {
-        pozos = new ArrayList<>();
-    }
+    public CampoEntity(){
+     }
 
     public CampoEntity(Long id)
     {
@@ -30,14 +26,9 @@ public class CampoEntity {
         this.id = id;
     }
 
-    public CampoEntity (List<PozoEntity> pozos)
-    {
-        this.pozos = pozos;
-    }
 
     public CampoEntity (Long id, RegionCampo region){
         this.region = region;
-        pozos = new ArrayList<>();
         this.id = id;
     }
 
@@ -57,6 +48,20 @@ public class CampoEntity {
 
     public static ArrayList<CampoEntity> lista = new ArrayList<>();
 
+    public static void invariante(){
+        if(lista.size()==0){
+            lista.add(new CampoEntity(new Long(1), RegionCampo.Andina));
+            lista.add(new CampoEntity(new Long(2), RegionCampo.Pacifica));
+            lista.add(new CampoEntity(new Long(3), RegionCampo.Orinoquia));
+        }
+    }
+
+
+    public static ArrayList<CampoEntity> getAll(){
+        invariante();
+        return lista;
+    }
+
     public static int buscar(Long id){
         boolean found = false;
         int rta = -1;
@@ -71,6 +76,7 @@ public class CampoEntity {
     }
 
     public static CampoEntity get(Long id){
+        invariante();
         int i = buscar(id);
         CampoEntity rta = null;
         if(i>-1)

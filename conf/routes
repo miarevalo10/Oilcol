@@ -20,16 +20,16 @@ DELETE  /campo/:id                          controllers.CampoController.deleteCa
 PUT     /campo/:id                          controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
-GET     /campo/:idCampo/pozos               controllers.PozoController.getPozos(idCampo : Long)
+GET     /campo/:idCampo/pozo               controllers.PozoController.getPozos(idCampo : Long)
 GET     /pozo/:id                           controllers.PozoController.getPozo(id : Long)
 POST    /pozo                               controllers.PozoController.createPozo()
 DELETE  /pozo/:id                           controllers.PozoController.deletePozo(idCampo : Long, id: Long)
 PUT     /pozo/:id                           controllers.PozoController.updatePozo(idCampo : Long, id : Long)
 
 #Servicios Sensores
-GET     /pozos/:idPozo/sensores             controllers.SensorController.getSensores(idCampo : Long, idPozo : Long)
-GET     /sensores/:id                       controllers.SensorController.getSensor(idCampo : Long, idPozo : Long, id : Long)
-POST    /sensores                           controllers.SensorController.createSensor(idCampo : Long, idPozo : Long)
-DELETE  /sensores/:id                       controllers.SensorController.deleteSensor(idCampo: Long, idPozo : Long, id : Long)
-PUT     /sensores/:id                       controllers.SensorController.updateSensor(idCampo : Long, idPozo : Long, id : Long)
+GET     /pozos/:idPozo/sensor             controllers.SensorController.getSensores(idCampo : Long, idPozo : Long)
+GET     /sensor/:id                       controllers.SensorController.getSensor(idCampo : Long, idPozo : Long, id : Long)
+POST    /sensor                           controllers.SensorController.createSensor(idCampo : Long, idPozo : Long)
+DELETE  /sensor/:id                       controllers.SensorController.deleteSensor(idCampo: Long, idPozo : Long, id : Long)
+PUT     /sensor/:id                       controllers.SensorController.updateSensor(idCampo : Long, idPozo : Long, id : Long)
 

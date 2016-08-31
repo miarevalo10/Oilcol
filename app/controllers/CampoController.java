@@ -29,7 +29,7 @@ public class CampoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return CampoEntity.lista;
+                            return CampoEntity.getAll();
                             //return CampoEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
