@@ -23,7 +23,7 @@ public class SensorController extends Controller
     @Inject HttpExecutionContext ec;
 
 
-    public CompletionStage<Result> getSensores()
+    public CompletionStage<Result> getSensores(Long idCampo, Long idPozo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -40,7 +40,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> getSensor(Long id)
+    public CompletionStage<Result> getSensor(Long idCampo, Long idPozo, Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -57,7 +57,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createSensor()
+    public CompletionStage<Result> createSensor(Long idCampo, Long idPozo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nProduct = request().body().asJson();
@@ -74,7 +74,7 @@ public class SensorController extends Controller
         );
     }
 
-    public CompletionStage<Result> deleteSensor(Long id)
+    public CompletionStage<Result> deleteSensor(Long idCampo, Long idPozo,Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -92,7 +92,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updateSensor(Long id)
+    public CompletionStage<Result> updateSensor(Long idCampo, Long idPozo, Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 

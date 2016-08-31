@@ -1,11 +1,13 @@
 package controllers;
 
+import com.google.inject.Inject;
 import dispatchers.AkkaDispatcher;
 import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 import akka.dispatch.MessageDispatcher;
 
 import models.CampoEntity;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
 import play.libs.Json;
@@ -16,6 +18,9 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 public class CampoController extends Controller
 {
+    @Inject
+    HttpExecutionContext ec;
+
     public CompletionStage<Result> getCampos()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
@@ -50,6 +55,11 @@ public class CampoController extends Controller
                 );
     }
 
+    public CompletionStage<Result> createCampo(){
+        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+
+    }
+
     public CompletionStage<Result> deleteCampo(long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
@@ -65,6 +75,28 @@ public class CampoController extends Controller
                     return ok(Json.toJson(productEntity));
                 }
         );
+    }
+
+    public CompletionStage<Result> updateCampo(Long id){
+
+        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+
+        return CompletableFuture.
+                supplyAsync(
+                        () -> {
+                            JsonNode campo = request().body().asJson();
+                            CampoEntity c = Json.fromJson(campo, CampoEntity.class);
+                            CampoEntity cActualizar = CampoEntity.FINDER.byId(id);
+                            //cActualizar.setAlgo(p.getAlgo());
+                            cActualizar.update();
+                            return cActualizar;
+                        }
+                        ,ec.current())
+                .thenApply(
+                        campoEntity -> {
+                            return ok(toJson(campoEntity));
+                        }
+                );
     }
 
     public CompletionStage<Result> createUsuario()

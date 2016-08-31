@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class CampoEntity extends Model
 
     public CampoEntity()
     {
-        pozos = null;
+        pozos = new ArrayList<>(); //TODO
     }
 
     public CampoEntity(Long id)

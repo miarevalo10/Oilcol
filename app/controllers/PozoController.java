@@ -21,7 +21,7 @@ public class PozoController extends Controller
     @Inject HttpExecutionContext ec;
 
 
-    public CompletionStage<Result> getPozos()
+    public CompletionStage<Result> getPozos(Long idCampo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -38,7 +38,7 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> getPozo(Long id)
+    public CompletionStage<Result> getPozo(Long idCampo, Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -55,7 +55,7 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createPozo()
+    public CompletionStage<Result> createPozo(Long idCampo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nProduct = request().body().asJson();
@@ -72,7 +72,7 @@ public class PozoController extends Controller
         );
     }
 
-    public CompletionStage<Result> deletePozo(Long id)
+    public CompletionStage<Result> deletePozo(Long idCampo, Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -90,7 +90,7 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updatePozo(Long id)
+    public CompletionStage<Result> updatePozo(Long idCampo, Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
