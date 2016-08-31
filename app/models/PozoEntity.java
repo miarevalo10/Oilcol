@@ -83,15 +83,15 @@ public class PozoEntity extends Model {
         this.id = id;
     }
 
-    public double getCaudal() { return sensor.getCaudal(); }
+  //  public double getCaudal() { return sensor.getCaudal(); }
 
 //    public void setCaudal(double caudal) { this.caudal = caudal; }
 
-    public double getConsumoEnergia() { return sensor.getConsumoEnergia(); }
+    //public double getConsumoEnergia() { return sensor.getConsumoEnergia(); }
 
 //    public void setConsumoEnergia(double consumoEnergia) { this.consumoEnergia = consumoEnergia; }
 
-    public double getTemperatura() { return sensor.getTemperatura(); }
+   // public double getTemperatura() { return sensor.getTemperatura(); }
 
 //    public void setTemperatura(double temperatura) { this.temperatura = temperatura; }
 
@@ -102,23 +102,20 @@ public class PozoEntity extends Model {
         if(estado != EstadoPozo.CLAUSURADO)this.estado = estado;
     }
 
-    public SensorEntity getSensor()
-    {
-        return sensor;
-    }
+//    public SensorEntity getSensor(){return sensor;}
 
 //    public EmergenciaPozo getEmergencia() { return emergencia; }
 //
 //    public void setEmergencia(EmergenciaPozo emergencia) { this.emergencia = emergencia; }
 
-    @Override
-    public String toString() {
-        return "PozoEntity{" +
-                "id=" + id +
-                ", caudal ='" + getCaudal() +
-                ", consumo de energía=" + getConsumoEnergia() +
-                ", temperatura =" + getTemperatura() +
-                ", estado=" + estado +
-                '}';
-    }
+    //@Override
+   // public String toString() {
+     //   return "PozoEntity{" +
+       //         "id=" + id +
+         //       ", caudal ='" + getCaudal() +
+           //     ", consumo de energía=" + getConsumoEnergia() +
+             //   ", temperatura =" + getTemperatura() +
+               // ", estado=" + estado +
+                //'}';
+    //}
 }

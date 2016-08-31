@@ -1,6 +1,7 @@
 package mock;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hj.calderon10 on 30/08/2016.
@@ -72,6 +73,12 @@ public class PozoEntity {
         this.estado = estado;
     }
 
+    public PozoEntity(Long idCampo, Long id, EstadoPozo estado){
+        this.idCampo = idCampo;
+        this.id = id;
+        this.estado = estado;
+    }
+
     public Long getId() {
         return id;
     }
@@ -115,7 +122,49 @@ public class PozoEntity {
                 '}';
     }
 
-    public static ArrayList<PozoEntity> lista = new ArrayList<>();
+    public static List<PozoEntity> lista = new ArrayList<>();
+
+    public static List<PozoEntity> get(Long idCampo){
+        List<PozoEntity> rta = new ArrayList<>();
+        for (int i = 0; i<lista.size(); i++){
+            PozoEntity actual = lista.get(i);
+            if(actual.getIdCampo() == idCampo)
+                rta.add(actual);
+        }
+        return rta;
+    }
+
+    public static PozoEntity getAlone(Long id){
+        PozoEntity rta = null;
+        for(int i = 0; i< lista.size() && rta == null;i++){
+            PozoEntity actual = lista.get(i);
+            if(actual.getId() == id)
+                rta = actual;
+        }
+        return rta;
+    }
+
+    public void save(){
+        int x = buscarIndice(this.getId());
+        lista.set(x, this);
+    }
+
+    public static int buscarIndice(Long id){
+        int x = -1;
+        for(int i=0;i<lista.size();i++){
+            PozoEntity actual = lista.get(i);
+            if(actual.getId() == id){
+                x = i;
+            }
+        }
+        return x;
+    }
+
+    public static void delete(Long id){
+        PozoEntity x = getAlone(id);
+        lista.remove(x);
+    }
+
 
 
 }

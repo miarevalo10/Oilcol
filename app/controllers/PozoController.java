@@ -7,7 +7,7 @@ import dispatchers.AkkaDispatcher;
 import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
-import models.PozoEntity;
+import mock.PozoEntity;
 import akka.dispatch.MessageDispatcher;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
@@ -28,7 +28,8 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return PozoEntity.FINDER.all();
+                            return PozoEntity.get(idCampo);
+                            //return PozoEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -38,14 +39,15 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> getPozo(Long idCampo, Long id)
+    public CompletionStage<Result> getPozo(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return PozoEntity.FINDER.byId(id);
+                            return PozoEntity.getAlone(id);
+                            //return PozoEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -79,8 +81,11 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            PozoEntity.FINDER.deleteById(id);
-                            return id;
+                            PozoEntity.delete(id);
+                            PozoEntity pozo = PozoEntity.getAlone(id);
+                            return pozo == null;
+                           // PozoEntity.FINDER.deleteById(id);
+                            //return id;
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -99,7 +104,7 @@ public class PozoController extends Controller
                         () -> {
                             JsonNode nProduct = request().body().asJson();
                             PozoEntity p = Json.fromJson( nProduct , PozoEntity.class ) ;
-                            PozoEntity pPorActualizar =  PozoEntity.FINDER.byId(id);
+                            PozoEntity pPorActualizar =  PozoEntity.getAlone(id);
 //                            ProductEntity.db().update(pPorActualizar);
 
 //                            pPorActualizar.setName(p.getName());
@@ -107,7 +112,7 @@ public class PozoController extends Controller
 //                            pPorActualizar.setPrice(p.getPrice());
 //                            pPorActualizar.setStock(p.getStock());
 
-                            pPorActualizar.update();
+                            pPorActualizar.save();
 
                             return pPorActualizar;
                         }
@@ -126,7 +131,7 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            PozoEntity pozo = PozoEntity.FINDER.byId(idPozo);
+                            PozoEntity pozo = PozoEntity.getAlone(idPozo);
                             pozo.setEstado(estadoPozo);
                             return pozo;
                         }

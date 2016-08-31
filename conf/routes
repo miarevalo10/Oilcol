@@ -13,23 +13,23 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #Servicios Campos
-GET     /campos                                             controllers.CampoController.getCampos()
-GET     /campos/:id                                         controllers.CampoController.getCampo(id : Long)
-POST    /campos                                             controllers.CampoController.createCampo()
-DELETE  /campos/:id                                         controllers.CampoController.deleteCampo(id : Long)
-PUT     /campos/:id                                         controllers.CampoController.updateCampo(id : Long)
+GET     /campo                              controllers.CampoController.getCampos()
+GET     /campo/:id                          controllers.CampoController.getCampo(id : Long)
+POST    /campo                              controllers.CampoController.createCampo()
+DELETE  /campo/:id                          controllers.CampoController.deleteCampo(id : Long)
+PUT     /campo/:id                          controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
-GET     /campos/:idCampo/pozos                              controllers.PozoController.getPozos(idCampo : Long)
-GET     /campos/:idCampo/pozos/:id                          controllers.PozoController.getPozo(idCampo : Long, id : Long)
-POST    /campos/:idCampo/pozos                              controllers.PozoController.createPozo(idCampo : Long)
-DELETE  /campos/:idCampo/pozos/:id                          controllers.PozoController.deletePozo(idCampo : Long, id: Long)
-PUT     /campos/:idCampo/pozos/:id                          controllers.PozoController.updatePozo(idCampo : Long, id : Long)
+GET     /campo/:idCampo/pozos               controllers.PozoController.getPozos(idCampo : Long)
+GET     /pozo/:id                           controllers.PozoController.getPozo(id : Long)
+POST    /pozo                               controllers.PozoController.createPozo(idCampo : Long)
+DELETE  /pozo/:id                           controllers.PozoController.deletePozo(idCampo : Long, id: Long)
+PUT     /pozo/:id                           controllers.PozoController.updatePozo(idCampo : Long, id : Long)
 
 #Servicios Sensores
-GET     /campos/:idCampo/pozos/:idPozo/sensores             controllers.SensorController.getSensores(idCampo : Long, idPozo : Long)
-GET     /campos/:idCampo/pozos/:idPozo/sensores/:id         controllers.SensorController.getSensor(idCampo : Long, idPozo : Long, id : Long)
-POST    /campos/:idCampo/pozos/:idPozo/sensores             controllers.SensorController.createSensor(idCampo : Long, idPozo : Long)
-DELETE  /campos/:idCampo/pozos/:idPozo/sensores/:id         controllers.SensorController.deleteSensor(idCampo: Long, idPozo : Long, id : Long)
-PUT     /campos/:idCampo/pozos/:idPozo/sensores/:id         controllers.SensorController.updateSensor(idCampo : Long, idPozo : Long, id : Long)
+GET     /pozos/:idPozo/sensores             controllers.SensorController.getSensores(idCampo : Long, idPozo : Long)
+GET     /sensores/:id                       controllers.SensorController.getSensor(idCampo : Long, idPozo : Long, id : Long)
+POST    /sensores                           controllers.SensorController.createSensor(idCampo : Long, idPozo : Long)
+DELETE  /sensores/:id                       controllers.SensorController.deleteSensor(idCampo: Long, idPozo : Long, id : Long)
+PUT     /sensores/:id                       controllers.SensorController.updateSensor(idCampo : Long, idPozo : Long, id : Long)
 
