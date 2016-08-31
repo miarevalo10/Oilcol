@@ -53,16 +53,6 @@ public class CampoEntity {
         this.id = id;
     }
 
-    public List<PozoEntity> getPozos() {
-        return pozos;
-    }
-
-    public void setPozos(List<PozoEntity> pozos) {
-        this.pozos = pozos;
-    }
-
-    public void agregarPozo(PozoEntity e){pozos.add(e);}
-    public void eliminarPozo(PozoEntity e){pozos.remove(e);}
 
 
     public static ArrayList<CampoEntity> lista = new ArrayList<>();

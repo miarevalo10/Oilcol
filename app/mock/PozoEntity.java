@@ -145,6 +145,10 @@ public class PozoEntity {
     }
 
     public void save(){
+        lista.add(this);
+    }
+
+    public void update(){
         int x = buscarIndice(this.getId());
         lista.set(x, this);
     }

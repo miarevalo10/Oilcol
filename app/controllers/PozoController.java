@@ -112,7 +112,7 @@ public class PozoController extends Controller
 //                            pPorActualizar.setPrice(p.getPrice());
 //                            pPorActualizar.setStock(p.getStock());
 
-                            pPorActualizar.save();
+                            pPorActualizar.update();
 
                             return pPorActualizar;
                         }
