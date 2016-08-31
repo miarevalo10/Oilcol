@@ -33,6 +33,7 @@ public class PozoEntity extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private SensorEntity sensor;
 
+
 //    /**
 //     * Se define como la suma de barriles de crudo (petróleo) y fluido (principalmente agua) diarios que la bomba de
 //     un equipo de producción extrae del pozo.
