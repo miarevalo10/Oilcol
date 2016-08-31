@@ -94,7 +94,10 @@ public class PozoEntity extends Model {
 
     public EstadoPozo getEstado() { return estado; }
 
-    public void setEstado(EstadoPozo estado) { this.estado = estado; }
+    public void setEstado(EstadoPozo estado)
+    {
+        if(estado != EstadoPozo.CLAUSURADO)this.estado = estado;
+    }
 
     public SensorEntity getSensor()
     {

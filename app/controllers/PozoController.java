@@ -118,4 +118,23 @@ public class PozoController extends Controller
                         }
                 );
     }
+
+    public CompletionStage<Result> cambiarEstadoPozo(Long idPozo, PozoEntity.EstadoPozo estadoPozo)
+    {
+        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+
+        return CompletableFuture.
+                supplyAsync(
+                        () -> {
+                            PozoEntity pozo = PozoEntity.FINDER.byId(idPozo);
+                            pozo.setEstado(estadoPozo);
+                            return pozo;
+                        }
+                        ,jdbcDispatcher)
+                .thenApply(
+                        pozoEntities -> {
+                            return ok(toJson(pozoEntities));
+                        }
+                );
+    }
 }
