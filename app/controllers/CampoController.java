@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 import akka.dispatch.MessageDispatcher;
 
+import io.netty.util.concurrent.CompleteFuture;
 import models.CampoEntity;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
@@ -58,6 +59,18 @@ public class CampoController extends Controller
     public CompletionStage<Result> createCampo(){
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
+        JsonNode nCampo = request().body().asJson();
+        CampoEntity campo = Json.fromJson(nCampo, CampoEntity.class);
+        return CompletableFuture.supplyAsync(
+                () -> {
+                    campo.save();
+                    return campo;
+                }
+        ).thenApply(
+                        campoEntity -> {
+                            return ok(Json.toJson(campoEntity));
+                        }
+        );
     }
 
     public CompletionStage<Result> deleteCampo(long id)

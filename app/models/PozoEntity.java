@@ -67,7 +67,7 @@ public class PozoEntity extends Model {
         this.id = id;
     }
 
-    public PozoEntity(Long id, double caudal,  double consumoEnergia, double temperatura, EstadoPozo estado ) {
+    public PozoEntity(Long id, EstadoPozo estado ) {
         this.id = id;
         this.estado = estado;
     }
