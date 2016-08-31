@@ -84,15 +84,15 @@ public class PozoEntity {
 
     public void setIdCampo(Long id){this.idCampo=id;}
 
-    public double getCaudal() { return sensorCaudal.getCaudal(); }
+    public double getCaudal() { return sensorCaudal.getUltimo(); }
 
     public void setCaudal(SensorEntity caudal) { this.sensorCaudal = caudal; }
 
-    public double getConsumoEnergia() { return sensorConsumo.getConsumoEnergia(); }
+    public double getConsumoEnergia() { return sensorConsumo.getUltimo(); }
 
     public void setConsumoEnergia(SensorEntity consumoEnergia) { this.sensorConsumo = consumoEnergia; }
 
-    public double getTemperatura() { return sensorTemperatura.getTemperatura(); }
+    public double getTemperatura() { return sensorTemperatura.getUltimo(); }
 
     public void setTemperatura(SensorEntity temperatura) { this.sensorTemperatura = temperatura; }
 
@@ -100,7 +100,7 @@ public class PozoEntity {
 
     public void setEstado(EstadoPozo estado) { this.estado = estado; }
 
-    public EmergenciaPozo getEmergencia() { return sensorEmergencia.getEmergencia(); }
+    public double getEmergencia() { return sensorEmergencia.getUltimo(); }
 
     public void setEmergencia(SensorEntity emergencia) { this.sensorEmergencia = emergencia; }
 
@@ -116,10 +116,6 @@ public class PozoEntity {
     }
 
     public static ArrayList<PozoEntity> lista = new ArrayList<>();
-
-    public pozoEntity(int i){
-        
-    }
 
 
 }

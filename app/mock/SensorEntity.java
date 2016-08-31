@@ -9,7 +9,7 @@ import java.util.Calendar;
 /**
  * Created by hj.calderon10 on 30/08/2016.
  */
-public class SensorMock
+public class SensorEntity
 {
     public final static int CAUDAL = 1;
     public final static int CONSUMO_ENERGIA = 2;
@@ -22,7 +22,7 @@ public class SensorMock
 
     private ArrayList<Registro> registros;
 
-    private ArrayList<SensorMock> listaSnsores;
+    private ArrayList<SensorEntity> listaSensores;
 
     private String tipo;
 
@@ -32,55 +32,21 @@ public class SensorMock
         /**
          * Se define como la suma de barriles de crudo (petróleo) y fluido (principalmente agua) diarios que la bomba de
          * un equipo de producción extrae del pozo.
+         * * El consumo diario de energía de la bomba dado en kWh (kilowatts-hora).
+         * La temperatura en °C (grados centígrados () del generador principal encargado de energizar la bomba.
          */
-        private double caudal;
-
-        /**
-         * El consumo diario de energía de la bomba dado en kWh (kilowatts-hora).
-         */
-        private double consumoEnergia;
-
-        /**
-         * La temperatura en °C (grados centígrados) del generador principal encargado de energizar la bomba.
-         */
-        private double temperatura;
-
-        private double emergencia;
+        private double registro;
 
         public Registro(Calendar createdAt, Calendar updatedAt, double registro, int tipo)
         {
-            if(tipo==CAUDAL)caudal = registro;
-            if(tipo==CONSUMO_ENERGIA)consumoEnergia = registro;
-            if(tipo==TEMPERATURA)temperatura = registro;
-            if(tipo==EMERGENCIA)emergencia = registro;
+            this.registro = registro;
 
             this.createdAt = createdAt;
             this.updatedAt = updatedAt;
         }
 
-        public double getCaudal() {
-            return caudal;
-        }
-
-        public void setCaudal(double caudal) {
-            this.caudal = caudal;
-        }
-
-        public double getConsumoEnergia() {
-            return consumoEnergia;
-        }
-
-        public void setConsumoEnergia(double consumoEnergia) {
-            this.consumoEnergia = consumoEnergia;
-        }
-
-        public double getTemperatura() {
-            return temperatura;
-        }
-
-        public void setTemperatura(double temperatura) {
-            this.temperatura = temperatura;
-        }
+       public double get(){return registro;}
+       public void set(double n){registro= n;}
 
         public Calendar getCreatedAt() {
             return createdAt;
@@ -98,16 +64,9 @@ public class SensorMock
             this.updatedAt = updatedAt;
         }
 
-        public double getEmergencia() {
-            return emergencia;
-        }
-
-        public void setEmergencia(double emergencia) {
-            this.emergencia = emergencia;
-        }
     }
 
-    public SensorMock(int id, int idPozo)
+    public SensorEntity(int id, int idPozo)
     {
         registros = new ArrayList<>();
         this.id = id;
@@ -119,17 +78,17 @@ public class SensorMock
         for (int i = 1; i <= 4; i++)
         {
             int j = 0;
-            listaSnsores.add(new SensorMock(i, ++j));
+            listaSensores.add(new SensorEntity(i, ++j));
         }
     }
 
     public void agregarRegistro(Calendar createdAt, Calendar updatedAt, int tipo, double registro, int idSensor)
     {
-        for (int i = 0; i < listaSnsores.size(); i++)
+        for (int i = 0; i < listaSensores.size(); i++)
         {
-            if(listaSnsores.get(i).getId() == idSensor)
+            if(listaSensores.get(i).getId() == idSensor)
             {
-                listaSnsores.get(i).getRegistros().add(new Registro(createdAt, updatedAt, registro, tipo));
+                listaSensores.get(i).getRegistros().add(new Registro(createdAt, updatedAt, registro, tipo));
             }
         }
     }
@@ -150,12 +109,12 @@ public class SensorMock
         this.pozo = pozo;
     }
 
-    public ArrayList<SensorMock> getListaSnsores() {
-        return listaSnsores;
+    public ArrayList<SensorEntity> getListaSensores() {
+        return listaSensores;
     }
 
-    public void setListaSnsores(ArrayList<SensorMock> listaSnsores) {
-        this.listaSnsores = listaSnsores;
+    public void setListaSensores(ArrayList<SensorEntity> listaSensores) {
+        this.listaSensores = listaSensores;
     }
 
     public String getTipo() {
@@ -173,4 +132,6 @@ public class SensorMock
     public void setRegistros(ArrayList<Registro> registros) {
         this.registros = registros;
     }
+
+    public double getUltimo(){return (registros.get((registros.size()-1))).get();}
 }
