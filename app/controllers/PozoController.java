@@ -57,7 +57,7 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createPozo(Long idCampo)
+    public CompletionStage<Result> createPozo()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nProduct = request().body().asJson();
