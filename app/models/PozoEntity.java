@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "pozo")
@@ -31,7 +32,7 @@ public class PozoEntity extends Model {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private SensorEntity sensor;
+    private ArrayList<SensorEntity> sensores;
 
 
 //    /**
@@ -71,6 +72,7 @@ public class PozoEntity extends Model {
     public PozoEntity(Long id, EstadoPozo estado ) {
         this.id = id;
         this.estado = estado;
+        sensores = new ArrayList<SensorEntity>();
     }
 
     public Long getId() {
