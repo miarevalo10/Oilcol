@@ -124,15 +124,16 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> cambiarEstadoPozo(Long idPozo, PozoEntity.EstadoPozo estadoPozo)
+    public CompletionStage<Result> cambiarEstadoPozo(Long idPozo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-
+        JsonNode nProduct = request().body().asJson();
+        PozoEntity product = Json.fromJson( nProduct , PozoEntity.class ) ;
         return CompletableFuture.
                 supplyAsync(
                         () -> {
                             PozoEntity pozo = PozoEntity.getAlone(idPozo);
-                            pozo.setEstado(estadoPozo);
+                            pozo.setEstado(product.getEstado());
                             return pozo;
                         }
                         ,jdbcDispatcher)

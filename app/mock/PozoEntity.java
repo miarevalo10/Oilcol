@@ -185,7 +185,4 @@ public class PozoEntity {
         PozoEntity x = getAlone(id);
         lista.remove(x);
     }
-
-
-
 }
