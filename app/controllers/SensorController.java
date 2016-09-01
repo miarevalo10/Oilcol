@@ -9,13 +9,14 @@ import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
 import akka.dispatch.MessageDispatcher;
-import models.SensorEntity;
+import mock.SensorEntity;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
 import play.libs.Json;
 import com.fasterxml.jackson.databind.JsonNode;
 import javax.inject.Inject;
 import play.libs.concurrent.HttpExecutionContext;
+import sun.management.Sensor;
 
 public class SensorController extends Controller
 {
@@ -23,14 +24,15 @@ public class SensorController extends Controller
     @Inject HttpExecutionContext ec;
 
 
-    public CompletionStage<Result> getSensores(Long idCampo, Long idPozo)
+    public CompletionStage<Result> getSensores(Long idPozo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.FINDER.all();
+                            return SensorEntity.getAll(idPozo);
+                           // return SensorEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -40,14 +42,15 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> getSensor(Long idCampo, Long idPozo, Long id)
+    public CompletionStage<Result> getSensor(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.FINDER.byId(id);
+                            return SensorEntity.get(id);
+//                            return SensorEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -57,7 +60,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createSensor(Long idCampo, Long idPozo)
+    public CompletionStage<Result> createSensor()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nProduct = request().body().asJson();
@@ -74,15 +77,18 @@ public class SensorController extends Controller
         );
     }
 
-    public CompletionStage<Result> deleteSensor(Long idCampo, Long idPozo,Long id)
+    public CompletionStage<Result> deleteSensor(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            SensorEntity.FINDER.deleteById(id);
-                            return id;
+                            SensorEntity.delete(id);
+                            SensorEntity sensor = SensorEntity.get(id);
+                            return sensor == null;
+//                            SensorEntity.FINDER.deleteById(id);
+//                            return id;
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -92,7 +98,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updateSensor(Long idCampo, Long idPozo, Long id)
+    public CompletionStage<Result> updateSensor(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -101,7 +107,7 @@ public class SensorController extends Controller
                         () -> {
                             JsonNode nProduct = request().body().asJson();
                             SensorEntity p = Json.fromJson( nProduct , SensorEntity.class ) ;
-                            SensorEntity pPorActualizar =  SensorEntity.FINDER.byId(id);
+                            SensorEntity pPorActualizar =  SensorEntity.get(id);
 //                            ProductEntity.db().update(pPorActualizar);
 
 //                            pPorActualizar.setName(p.getName());

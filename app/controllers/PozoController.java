@@ -124,7 +124,13 @@ public class PozoController extends Controller
                 );
     }
 
+<<<<<<< HEAD
     public CompletionStage<Result> cambiarEstadoPozo(Long idPozo)
+=======
+
+    //TODO
+    public CompletionStage<Result> cambiarEstadoPozo(Long idPozo, PozoEntity.EstadoPozo estadoPozo)
+>>>>>>> 42a8e8a9c50b4dbc3ce8b646fb3c378764262b2e
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nProduct = request().body().asJson();

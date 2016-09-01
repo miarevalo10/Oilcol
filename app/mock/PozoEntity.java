@@ -155,7 +155,7 @@ public class PozoEntity {
         PozoEntity rta = null;
         for(int i = 0; i< lista.size() && rta == null;i++){
             PozoEntity actual = lista.get(i);
-            if(actual.getId() == id)
+            if(actual.getId().equals(id))
                 rta = actual;
         }
         return rta;
@@ -174,7 +174,7 @@ public class PozoEntity {
         int x = -1;
         for(int i=0;i<lista.size();i++){
             PozoEntity actual = lista.get(i);
-            if(actual.getId() == id){
+            if(actual.getId().equals(id)){
                 x = i;
             }
         }
