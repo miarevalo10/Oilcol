@@ -74,7 +74,7 @@ public class PozoController extends Controller
         );
     }
 
-    public CompletionStage<Result> deletePozo(Long idCampo, Long id)
+    public CompletionStage<Result> deletePozo(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -95,46 +95,17 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updatePozo(Long idCampo, Long id)
+    public CompletionStage<Result> updatePozo()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-
+        JsonNode nProduct = request().body().asJson();
+        PozoEntity product = Json.fromJson( nProduct , PozoEntity.class ) ;
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            JsonNode nProduct = request().body().asJson();
-                            PozoEntity p = Json.fromJson( nProduct , PozoEntity.class ) ;
-                            PozoEntity pPorActualizar =  PozoEntity.getAlone(id);
-//                            ProductEntity.db().update(pPorActualizar);
-
-//                            pPorActualizar.setName(p.getName());
-//                            pPorActualizar.setAvailable(p.getAvailable());
-//                            pPorActualizar.setPrice(p.getPrice());
-//                            pPorActualizar.setStock(p.getStock());
-
-                            pPorActualizar.update();
-
-                            return pPorActualizar;
-                        }
-                        ,ec.current())
-                .thenApply(
-                        pozoEntity -> {
-                            return ok(toJson(pozoEntity));
-                        }
-                );
-    }
-
-
-    //TODO
-    public CompletionStage<Result> cambiarEstadoPozo(Long idPozo, PozoEntity.EstadoPozo estadoPozo)
-    {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-
-        return CompletableFuture.
-                supplyAsync(
-                        () -> {
-                            PozoEntity pozo = PozoEntity.getAlone(idPozo);
-                            pozo.setEstado(estadoPozo);
+                            PozoEntity pozo = PozoEntity.getAlone(product.getId());
+                            pozo.setEstado(product.getEstado());
+                            pozo.update();
                             return pozo;
                         }
                         ,jdbcDispatcher)
