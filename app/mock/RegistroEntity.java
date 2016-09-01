@@ -27,7 +27,7 @@ public class RegistroEntity {
         this.id = id;
         this.idSensor = idSensor;
         this.registro = registro;
-//        this.updatedAt = updatedAt;
+        this.updatedAt = updatedAt;
     }
 
     public double get(){return registro;}
