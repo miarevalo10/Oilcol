@@ -26,7 +26,7 @@ public class SensorEntity
     private TipoSensor tipo;
 
 
-    public SensorEntity(Long id, Long idPozo, TipoSensor x)
+    public SensorEntity(Long idPozo, Long id, TipoSensor x)
     {
         this.id = id;
         this.idPozo = idPozo;
@@ -61,20 +61,20 @@ public class SensorEntity
     public static ArrayList<SensorEntity> lista = new ArrayList<>();
 
 
-//    public static void invariante(){
-//        if(lista.size()==0){
-//            lista.add(new PozoEntity(new Long(1), new Long(1), EstadoPozo.ABIERTO));
-//            lista.add(new PozoEntity(new Long(2), new Long(2), EstadoPozo.PARADO));
-//            lista.add(new PozoEntity(new Long(3), new Long(3), EstadoPozo.ABIERTO));
-//            lista.add(new PozoEntity(new Long(1), new Long(4), EstadoPozo.ABIERTO));
-//            lista.add(new PozoEntity(new Long(1), new Long(5), EstadoPozo.PRODUCCION));
-//            lista.add(new PozoEntity(new Long(2), new Long(6), EstadoPozo.PRODUCCION));
-//            lista.add(new PozoEntity(new Long(1), new Long(7), EstadoPozo.ABIERTO));
-//        }
-//    }
+    public static void invariante(){
+        if(lista.size()==0){
+            lista.add(new SensorEntity(new Long(1), new Long(1), TipoSensor.Caudal));
+            lista.add(new SensorEntity(new Long(2), new Long(2), TipoSensor.Caudal));
+            lista.add(new SensorEntity(new Long(3), new Long(3), TipoSensor.Caudal));
+            lista.add(new SensorEntity(new Long(1), new Long(4), TipoSensor.ConsumoEnergia));
+            lista.add(new SensorEntity(new Long(1), new Long(5), TipoSensor.Emergencia));
+            lista.add(new SensorEntity(new Long(2), new Long(6), TipoSensor.Caudal));
+            lista.add(new SensorEntity(new Long(1), new Long(7), TipoSensor.Temperatura));
+        }
+    }
 
     public static List<SensorEntity> getAll(Long idPozo){
-//        invariante();
+        invariante();
         List<SensorEntity> rta = new ArrayList<>();
         for (int i = 0; i<lista.size(); i++){
             SensorEntity actual = lista.get(i);
@@ -86,7 +86,7 @@ public class SensorEntity
     }
 
     public static SensorEntity get(Long id){
-//        invariante();
+        invariante();
         SensorEntity rta = null;
         for(int i=0; i<lista.size() && rta == null;i++){
             SensorEntity actual = lista.get(i);
@@ -99,6 +99,27 @@ public class SensorEntity
 
     public void save(){
         lista.add(this);
+    }
+
+    public void update(){
+        int x = buscarIndice(this.getId());
+        lista.set(x, this);
+    }
+
+    public static int buscarIndice(Long id){
+        int x = -1;
+        for(int i=0;i<lista.size();i++){
+            SensorEntity actual = lista.get(i);
+            if(actual.getId().equals(id)){
+                x = i;
+            }
+        }
+        return x;
+    }
+
+    public static void delete(Long id){
+        SensorEntity x = get(id);
+        lista.remove(x);
     }
 
 
