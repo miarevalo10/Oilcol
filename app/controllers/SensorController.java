@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
 import akka.dispatch.MessageDispatcher;
-import models.SensorEntity;
+import mock.SensorEntity;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
 import play.libs.Json;
@@ -23,14 +23,15 @@ public class SensorController extends Controller
     @Inject HttpExecutionContext ec;
 
 
-    public CompletionStage<Result> getSensores(Long idCampo, Long idPozo)
+    public CompletionStage<Result> getSensores(Long idPozo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.FINDER.all();
+                            return SensorEntity.getAll(idPozo);
+                           // return SensorEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -40,14 +41,15 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> getSensor(Long idCampo, Long idPozo, Long id)
+    public CompletionStage<Result> getSensor(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.FINDER.byId(id);
+                            return SensorEntity.get(id);
+//                            return SensorEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(

@@ -67,7 +67,7 @@ public class CampoEntity {
         int rta = -1;
         for (int i = 0; i<lista.size() && !found;i++){
             CampoEntity actual = lista.get(i);
-            if(actual.getId()==id){
+            if(actual.getId().equals(id)){
                 rta = i;
                 found = true;
             }
