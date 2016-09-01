@@ -23,9 +23,8 @@ PUT     /campo/:id                          controllers.CampoController.updateCa
 GET     /campo/:idCampo/pozo                controllers.PozoController.getPozos(idCampo : Long)
 GET     /pozo/:id                           controllers.PozoController.getPozo(id : Long)
 POST    /pozo                               controllers.PozoController.createPozo()
-PUT     /pozo/:id                           controllers.PozoController.cambiarEstadoPozo(id: Long)
-DELETE  /pozo/:id                           controllers.PozoController.deletePozo(idCampo : Long, id: Long)
-PUT     /pozo/:id                           controllers.PozoController.updatePozo(idCampo : Long, id : Long)
+DELETE  /pozo/:id                           controllers.PozoController.deletePozo(id: Long)
+PUT     /pozo                                controllers.PozoController.updatePozo()
 
 #Servicios Sensores
 GET     /pozo/:idPozo/sensor             controllers.SensorController.getSensores(idPozo : Long)
