@@ -8,7 +8,7 @@ import java.util.*;
 public class RegistroEntity {
 
 //    private Date createdAt;
-    private Date updatedAt;
+    private String updatedAt;
     /**
      * Se define como la suma de barriles de crudo (petróleo) y fluido (principalmente agua) diarios que la bomba de
      * un equipo de producción extrae del pozo.
@@ -22,7 +22,7 @@ public class RegistroEntity {
     private Long idSensor;
 
 
-    public RegistroEntity(Long idSensor,Long id, Date updatedAt, double registro)
+    public RegistroEntity(Long idSensor,Long id, String updatedAt, double registro)
     {
         this.id = id;
         this.idSensor = idSensor;
@@ -49,11 +49,11 @@ public class RegistroEntity {
 //        this.createdAt = createdAt;
 //    }
 
-    public Date getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -74,13 +74,13 @@ public class RegistroEntity {
 
     public static void invariante(){
         if(lista.size()==0){
-            lista.add(new RegistroEntity(new Long(1), new Long(1), new Date(), 81));
-            lista.add(new RegistroEntity(new Long(1), new Long(2), new Date(), 15));
-            lista.add(new RegistroEntity(new Long(1), new Long(3), new Date(), 50));
-            lista.add(new RegistroEntity(new Long(1), new Long(4), new Date(), 35));
-            lista.add(new RegistroEntity(new Long(2), new Long(5), new Date(), 105));
-            lista.add(new RegistroEntity(new Long(2), new Long(6), new Date(), 125));
-            lista.add(new RegistroEntity(new Long(3), new Long(7), new Date(), 500));
+            lista.add(new RegistroEntity(new Long(1), new Long(1), "31/08/2016", 81));
+            lista.add(new RegistroEntity(new Long(1), new Long(2), "25/08/2016", 15));
+            lista.add(new RegistroEntity(new Long(1), new Long(3), "2/05/2016", 50));
+            lista.add(new RegistroEntity(new Long(1), new Long(4), "15/04/2016", 35));
+            lista.add(new RegistroEntity(new Long(2), new Long(5), "25/10/2016", 105));
+            lista.add(new RegistroEntity(new Long(2), new Long(6), "20/10/2016", 125));
+            lista.add(new RegistroEntity(new Long(3), new Long(7), "20/01/2016", 500));
         }
     }
 
