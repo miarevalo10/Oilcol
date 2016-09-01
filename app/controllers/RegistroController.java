@@ -97,7 +97,7 @@ public class RegistroController extends Controller {
                 );
     }
 
-    public CompletionStage<Result> updateRegistro(Long id)
+    public CompletionStage<Result> updateRegistro()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -106,7 +106,7 @@ public class RegistroController extends Controller {
                         () -> {
                             JsonNode nProduct = request().body().asJson();
                             RegistroEntity p = Json.fromJson( nProduct , RegistroEntity.class ) ;
-                            RegistroEntity pPorActualizar =  RegistroEntity.getRegistro(id);
+                            RegistroEntity pPorActualizar =  RegistroEntity.getRegistro(p.getId());
 //                            ProductEntity.db().update(pPorActualizar);
 
 //                            pPorActualizar.setName(p.getName());

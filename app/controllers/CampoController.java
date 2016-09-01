@@ -95,7 +95,7 @@ public class CampoController extends Controller
         );
     }
 
-    public CompletionStage<Result> updateCampo(Long id){
+    public CompletionStage<Result> updateCampo(){
 
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -104,7 +104,7 @@ public class CampoController extends Controller
                         () -> {
                             JsonNode campo = request().body().asJson();
                             CampoEntity c = Json.fromJson(campo, CampoEntity.class);
-                            CampoEntity cActualizar = CampoEntity.get(id);
+                            CampoEntity cActualizar = CampoEntity.get(c.getId());
                             //CampoEntity cActualizar = CampoEntity.FINDER.byId(id);
                             //cActualizar.setAlgo(p.getAlgo());
                             cActualizar.update();

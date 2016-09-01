@@ -98,7 +98,7 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updateSensor(Long id)
+    public CompletionStage<Result> updateSensor()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
@@ -107,7 +107,7 @@ public class SensorController extends Controller
                         () -> {
                             JsonNode nProduct = request().body().asJson();
                             SensorEntity p = Json.fromJson( nProduct , SensorEntity.class ) ;
-                            SensorEntity pPorActualizar =  SensorEntity.get(id);
+                            SensorEntity pPorActualizar =  SensorEntity.get(p.getId());
 //                            ProductEntity.db().update(pPorActualizar);
 
 //                            pPorActualizar.setName(p.getName());
