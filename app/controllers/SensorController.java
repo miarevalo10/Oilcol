@@ -114,6 +114,7 @@ public class SensorController extends Controller
 //                            pPorActualizar.setAvailable(p.getAvailable());
 //                            pPorActualizar.setPrice(p.getPrice());
 //                            pPorActualizar.setStock(p.getStock());
+                            pPorActualizar.setTipo(p.getTipo());
 
                             pPorActualizar.update();
 

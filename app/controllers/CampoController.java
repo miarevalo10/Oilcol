@@ -107,6 +107,7 @@ public class CampoController extends Controller
                             CampoEntity cActualizar = CampoEntity.get(c.getId());
                             //CampoEntity cActualizar = CampoEntity.FINDER.byId(id);
                             //cActualizar.setAlgo(p.getAlgo());
+                            cActualizar.setRegion(c.getRegion());
                             cActualizar.update();
                             return cActualizar;
                         }

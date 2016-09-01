@@ -113,6 +113,7 @@ public class RegistroController extends Controller {
 //                            pPorActualizar.setAvailable(p.getAvailable());
 //                            pPorActualizar.setPrice(p.getPrice());
 //                            pPorActualizar.setStock(p.getStock());
+                            pPorActualizar.setUpdatedAt(pPorActualizar.getUpdatedAt());
 
                             pPorActualizar.update();
 
