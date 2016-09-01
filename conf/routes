@@ -13,24 +13,29 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #Servicios Campos
-GET     /campo                              controllers.CampoController.getCampos()
-GET     /campo/:id                          controllers.CampoController.getCampo(id : Long)
-POST    /campo                              controllers.CampoController.createCampo()
-DELETE  /campo/:id                          controllers.CampoController.deleteCampo(id : Long)
-PUT     /campo/:id                          controllers.CampoController.updateCampo(id : Long)
+GET     /campo                      controllers.CampoController.getCampos()
+GET     /campo/:id                  controllers.CampoController.getCampo(id : Long)
+POST    /campo                      controllers.CampoController.createCampo()
+DELETE  /campo/:id                  controllers.CampoController.deleteCampo(id : Long)
+PUT     /campo/:id                  controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
-GET     /campo/:idCampo/pozo               controllers.PozoController.getPozos(idCampo : Long)
-GET     /pozo/:id                           controllers.PozoController.getPozo(id : Long)
-POST    /pozo                               controllers.PozoController.createPozo()
-DELETE  /pozo/:id                           controllers.PozoController.deletePozo(idCampo : Long, id: Long)
-PUT     /pozo/:id                           controllers.PozoController.updatePozo(idCampo : Long, id : Long)
+GET     /campo/:idCampo/pozo        controllers.PozoController.getPozos(idCampo : Long)
+GET     /pozo/:id                   controllers.PozoController.getPozo(id : Long)
+POST    /pozo                       controllers.PozoController.createPozo()
+DELETE  /pozo/:id                   controllers.PozoController.deletePozo(idCampo : Long, id: Long)
+PUT     /pozo/:id                   controllers.PozoController.updatePozo(idCampo : Long, id : Long)
 
 #Servicios Sensores
-GET     /pozo/:idPozo/sensor             controllers.SensorController.getSensores(idPozo : Long)
-GET     /sensor/:id                       controllers.SensorController.getSensor(id : Long)
-POST    /sensor                           controllers.SensorController.createSensor()
-DELETE  /sensor/:id                       controllers.SensorController.deleteSensor(id : Long)
-PUT     /sensor/:id                       controllers.SensorController.updateSensor(id : Long)
+GET     /pozo/:idPozo/sensor        controllers.SensorController.getSensores(idPozo : Long)
+GET     /sensor/:id                 controllers.SensorController.getSensor(id : Long)
+POST    /sensor                     controllers.SensorController.createSensor()
+DELETE  /sensor/:id                 controllers.SensorController.deleteSensor(id : Long)
+PUT     /sensor/:id                 controllers.SensorController.updateSensor(id : Long)
 
 #Servicios Registros
+GET     /sensor/:idSensor/registro  controllers.RegistroController.getRegistros(idSensor : Long)
+GET     /registro/:id               controllers.RegistroController.getRegistro(id : Long)
+POST    /registro                   controllers.RegistroController.createRegistro()
+DELETE  /registro/:id               controllers.RegistroController.deleteRegistro(id : Long)
+PUT     /registro/:id               controllers.RegistroController.updateRegistro(id : Long)
