@@ -26,6 +26,10 @@ public class SensorEntity
     private TipoSensor tipo;
 
 
+    public SensorEntity(){
+
+    }
+
     public SensorEntity(Long idPozo, Long id, TipoSensor x)
     {
         this.id = id;

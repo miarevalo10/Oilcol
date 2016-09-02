@@ -22,6 +22,9 @@ public class RegistroEntity {
     private Long idSensor;
 
 
+    public RegistroEntity(){}
+
+
     public RegistroEntity(Long idSensor,Long id, String updatedAt, double registro)
     {
         this.id = id;

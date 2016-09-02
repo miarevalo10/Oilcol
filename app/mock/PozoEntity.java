@@ -62,7 +62,7 @@ public class PozoEntity {
 
 
     public PozoEntity() {
-        this.id=null;
+
     }
 
     public PozoEntity(Long id) {
