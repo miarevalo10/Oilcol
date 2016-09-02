@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hj.calderon10 on 30/08/2016.
- */
+ * Created by hj.calderon10 on 30/08/2016.*/
 public class CampoEntity {
 
     public enum RegionCampo
@@ -18,6 +17,7 @@ public class CampoEntity {
     private RegionCampo region;
 
     public CampoEntity(){
+        this.id=null;
      }
 
     public CampoEntity(Long id)
