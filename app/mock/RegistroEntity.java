@@ -15,7 +15,7 @@ public class RegistroEntity {
      * * El consumo diario de energía de la bomba dado en kWh (kilowatts-hora).
      * La temperatura en °C (grados centígrados () del generador principal encargado de energizar la bomba.
      */
-    private double registro;
+    private double medida;
 
     private Long id;
 
@@ -25,16 +25,16 @@ public class RegistroEntity {
     public RegistroEntity(){}
 
 
-    public RegistroEntity(Long idSensor,Long id, String updatedAt, double registro)
+    public RegistroEntity(Long idSensor,Long id, String updatedAt, double medida)
     {
         this.id = id;
         this.idSensor = idSensor;
-        this.registro = registro;
+        this.medida = medida;
         this.updatedAt = updatedAt;
     }
 
-    public double get(){return registro;}
-    public void set(double n){registro= n;}
+    public double getMedida(){return medida;}
+    public void setMedida(double n){medida= n;}
 
     public Long getId(){return id;}
     public void setId(Long id){this.id=id;}
