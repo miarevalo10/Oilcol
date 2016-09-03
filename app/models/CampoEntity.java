@@ -10,46 +10,40 @@ import java.util.List;
  * Created by ls.hernandez10 on 30/08/2016.
  */
 @Entity
-@Table(name = "campoentity")
-public class CampoEntity extends Model
-{
-    public static Model.Finder<Long,CampoEntity> FINDER = new Model.Finder<>(CampoEntity.class);
+@Table(name = "campo")
+public class CampoEntity extends Model {
+    public static Model.Finder<Long, CampoEntity> FINDER = new Model.Finder<>(CampoEntity.class);
+
+    public enum RegionCampo {
+        Andina, Pacifica, Orinoquia, Amazonia, Caribe;
+    }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "Campo")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Campo")
+    private Long idCampo;
 
-    private List<PozoEntity> pozos;
+    private RegionCampo region;
 
-    public CampoEntity()
-    {
-        pozos = new ArrayList<>(); //TODO
+    public CampoEntity() {
+
     }
 
-    public CampoEntity(Long id)
-    {
-        this();
-        this.id = id;
-    }
-
-    public CampoEntity (List<PozoEntity> pozos)
-    {
-        this.pozos = pozos;
+    public CampoEntity (Long id, RegionCampo region){
+        this.region = region;
+        this.idCampo = id;
     }
 
     public Long getId() {
-        return id;
+        return idCampo;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idCampo = id;
     }
 
-    public List<PozoEntity> getPozos() {
-        return pozos;
-    }
 
-    public void setPozos(List<PozoEntity> pozos) {
-        this.pozos = pozos;
-    }
+    public RegionCampo getRegion(){return region;}
+
+    public void setRegion(RegionCampo region){this.region = region;}
 }
+

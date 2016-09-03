@@ -7,7 +7,7 @@ import static play.libs.Json.toJson;
 import akka.dispatch.MessageDispatcher;
 
 import io.netty.util.concurrent.CompleteFuture;
-import mock.CampoEntity;
+import models.CampoEntity;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
@@ -29,8 +29,8 @@ public class CampoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return CampoEntity.getAll();
-                            //return CampoEntity.FINDER.all();
+//                            return CampoEntity.getAll();
+                            return CampoEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -47,8 +47,8 @@ public class CampoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return CampoEntity.get(id);
-                            //return CampoEntity.FINDER.byId(id);
+//                            return CampoEntity.get(id);
+                            return CampoEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -81,12 +81,13 @@ public class CampoController extends Controller
 
         return CompletableFuture.supplyAsync(
                 ()->{
-                    CampoEntity.delete(id);
-                    CampoEntity campo = CampoEntity.get(id);
-                    return campo==null;
-                    //CampoEntity campo = CampoEntity.FINDER.byId(id);
-                    //CampoEntity.FINDER.deleteById(id);
-                    //return campo != null;
+//                    CampoEntity.delete(id);
+//                    CampoEntity campo = CampoEntity.get(id);
+//                    return campo==null;
+                    CampoEntity campo = CampoEntity.FINDER.byId(id);
+                    CampoEntity.FINDER.deleteById(id);
+                    campo = CampoEntity.FINDER.byId(id);
+                    return campo == null;
                 }
         ).thenApply(
                 productEntity -> {
@@ -104,8 +105,8 @@ public class CampoController extends Controller
                         () -> {
                             JsonNode campo = request().body().asJson();
                             CampoEntity c = Json.fromJson(campo, CampoEntity.class);
-                            CampoEntity cActualizar = CampoEntity.get(c.getId());
-                            //CampoEntity cActualizar = CampoEntity.FINDER.byId(id);
+//                            CampoEntity cActualizar = CampoEntity.get(c.getId());
+                            CampoEntity cActualizar = CampoEntity.FINDER.byId(c.getId());
                             //cActualizar.setAlgo(p.getAlgo());
                             cActualizar.setRegion(c.getRegion());
                             cActualizar.update();
