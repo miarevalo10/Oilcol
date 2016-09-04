@@ -1,5 +1,9 @@
 package mock;
 
+import models.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,8 @@ public class CampoEntity {
     private Long id;
 
     private RegionCampo region;
+
+
 
     public CampoEntity(){
         this.id=null;

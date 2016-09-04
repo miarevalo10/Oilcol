@@ -3,7 +3,7 @@ package controllers;
 import akka.dispatch.MessageDispatcher;
 import com.fasterxml.jackson.databind.JsonNode;
 import dispatchers.AkkaDispatcher;
-import mock.RegistroEntity;
+import models.RegistroEntity;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
@@ -23,20 +23,19 @@ public class RegistroController extends Controller {
     HttpExecutionContext ec;
 
 
-    public CompletionStage<Result> getRegistros(Long idPozo)
+    public CompletionStage<Result> getRegistros(Long idSensor)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return RegistroEntity.getAll(idPozo);
-                            // return SensorEntity.FINDER.all();
+                            return RegistroEntity.FINDER.where().eq("sensor",idSensor).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
-                        sensorEntities -> {
-                            return ok(toJson(sensorEntities));
+                        registroEntities -> {
+                            return ok(toJson(registroEntities));
                         }
                 );
     }
@@ -48,26 +47,25 @@ public class RegistroController extends Controller {
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return RegistroEntity.getRegistro(id);
-//                            return SensorEntity.FINDER.byId(id);
+
+                            return RegistroEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
-                        sensorEntities -> {
-                            return ok(toJson(sensorEntities));
+                        registroEntity -> {
+                            return ok(toJson(registroEntity));
                         }
                 );
     }
 
     public CompletionStage<Result> createRegistro()
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        JsonNode nProduct = request().body().asJson();
-        RegistroEntity  product = Json.fromJson( nProduct , RegistroEntity.class ) ;
+        JsonNode nRegistro = request().body().asJson();
+        RegistroEntity  registro = Json.fromJson( nRegistro , RegistroEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
-                    product.save();
-                    return product;
+                    registro.save();
+                    return registro;
                 }
         ).thenApply(
                 sensorEntity -> {
@@ -83,11 +81,9 @@ public class RegistroController extends Controller {
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            RegistroEntity.delete(id);
-                            RegistroEntity sensor = RegistroEntity.getRegistro(id);
-                            return sensor == null;
-//                            SensorEntity.FINDER.deleteById(id);
-//                            return id;
+
+                            RegistroEntity.FINDER.deleteById(id);
+                            return id;
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -97,23 +93,18 @@ public class RegistroController extends Controller {
                 );
     }
 
-    public CompletionStage<Result> updateRegistro()
+    public CompletionStage<Result> updateRegistro(Long id)
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
                             JsonNode nProduct = request().body().asJson();
                             RegistroEntity p = Json.fromJson( nProduct , RegistroEntity.class ) ;
-                            RegistroEntity pPorActualizar =  RegistroEntity.getRegistro(p.getId());
-//                            ProductEntity.db().update(pPorActualizar);
+                            RegistroEntity pPorActualizar =  RegistroEntity.FINDER.byId(id);
 
-//                            pPorActualizar.setName(p.getName());
-//                            pPorActualizar.setAvailable(p.getAvailable());
-//                            pPorActualizar.setPrice(p.getPrice());
-//                            pPorActualizar.setStock(p.getStock());
-                            pPorActualizar.setUpdatedAt(pPorActualizar.getUpdatedAt());
+//                            pPorActualizar.setUpdatedAt(p.getUpdatedAt());
+                            pPorActualizar.setMedida(p.getMedida());
 
                             pPorActualizar.update();
 

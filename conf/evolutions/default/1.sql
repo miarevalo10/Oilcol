@@ -3,69 +3,69 @@
 
 # --- !Ups
 
-create table campoentity (
+create table campos (
   id                        bigint not null,
-  constraint pk_campoentity primary key (id))
+  region                    integer,
+  constraint ck_campos_region check (region in (0,1,2,3,4)),
+  constraint pk_campos primary key (id))
 ;
 
-create table pozo (
+create table pozos (
   id                        bigint not null,
   estado                    integer,
-  constraint ck_pozo_estado check (estado in (0,1,2,3)),
-  constraint pk_pozo primary key (id))
+  campo_id                  bigint,
+  constraint ck_pozos_estado check (estado in (0,1,2,3)),
+  constraint pk_pozos primary key (id))
 ;
 
-create table sensor (
+create table registros (
   id                        bigint not null,
+  sensor_id                 bigint,
   created_at                timestamp,
-  updated_at                timestamp,
-  pozo_id                   bigint,
-  caudal                    double,
-  consumo_energia           double,
-  temperatura               double,
-  constraint pk_sensor primary key (id))
+  medida                    float,
+  constraint pk_registros primary key (id))
 ;
 
-create table usuarioentity (
+create table sensores (
   id                        bigint not null,
-  nombre                    varchar(255),
+  pozo_id                   bigint,
   tipo                      integer,
-  constraint ck_usuarioentity_tipo check (tipo in (0,1)),
-  constraint pk_usuarioentity primary key (id))
+  constraint ck_sensores_tipo check (tipo in (0,1,2,3)),
+  constraint pk_sensores primary key (id))
 ;
 
 create sequence Campo;
 
 create sequence Pozo;
 
+create sequence Registro;
+
 create sequence Sensor;
 
-create sequence Usuario;
-
-alter table sensor add constraint fk_sensor_pozo_1 foreign key (pozo_id) references pozo (id) on delete restrict on update restrict;
-create index ix_sensor_pozo_1 on sensor (pozo_id);
+alter table pozos add constraint fk_pozos_campo_1 foreign key (campo_id) references campos (id);
+create index ix_pozos_campo_1 on pozos (campo_id);
+alter table registros add constraint fk_registros_sensor_2 foreign key (sensor_id) references sensores (id);
+create index ix_registros_sensor_2 on registros (sensor_id);
+alter table sensores add constraint fk_sensores_pozo_3 foreign key (pozo_id) references pozos (id);
+create index ix_sensores_pozo_3 on sensores (pozo_id);
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+drop table if exists campos cascade;
 
-drop table if exists campoentity;
+drop table if exists pozos cascade;
 
-drop table if exists pozo;
+drop table if exists registros cascade;
 
-drop table if exists sensor;
-
-drop table if exists usuarioentity;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists sensores cascade;
 
 drop sequence if exists Campo;
 
 drop sequence if exists Pozo;
 
-drop sequence if exists Sensor;
+drop sequence if exists Registro;
 
-drop sequence if exists Usuario;
+drop sequence if exists Sensor;
 

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "pozo")
+@Table(name = "pozos")
 public class PozoEntity extends Model {
 
     public static Finder<Long,PozoEntity> FINDER = new Finder<>(PozoEntity.class);
@@ -31,34 +31,13 @@ public class PozoEntity extends Model {
     @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "Pozo")
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pozo",cascade = CascadeType.ALL)
     private ArrayList<SensorEntity> sensores;
 
-
-//    /**
-//     * Se define como la suma de barriles de crudo (petróleo) y fluido (principalmente agua) diarios que la bomba de
-//     un equipo de producción extrae del pozo.
-//     */
-//    private double caudal;
-//
-//    /**
-//     * El consumo diario de energía de la bomba dado en kWh (kilowatts-hora).
-//     */
-//    private double consumoEnergia;
-//
-//    /**
-//     * La temperatura en °C (grados centígrados) del generador principal encargado de energizar la bomba.
-//     */
-//    private double temperatura;
-//
-//
     private EstadoPozo estado;
 
-//    /**
-//     * Ocurrencia de una emergencia en pozo, que pueden ser: incendio, bloqueo en pozo y daño eléctrico.
-//     */
-//    private EmergenciaPozo emergencia;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CampoEntity campo;
 
     public PozoEntity() {
         this.id=null;
@@ -69,7 +48,7 @@ public class PozoEntity extends Model {
         this.id = id;
     }
 
-    public PozoEntity(Long id, EstadoPozo estado ) {
+    public PozoEntity(Long id, EstadoPozo estado, CampoEntity c ) {
         this.id = id;
         this.estado = estado;
         sensores = new ArrayList<SensorEntity>();
@@ -83,18 +62,6 @@ public class PozoEntity extends Model {
         this.id = id;
     }
 
-  //  public double getCaudal() { return sensor.getCaudal(); }
-
-//    public void setCaudal(double caudal) { this.caudal = caudal; }
-
-    //public double getConsumoEnergia() { return sensor.getConsumoEnergia(); }
-
-//    public void setConsumoEnergia(double consumoEnergia) { this.consumoEnergia = consumoEnergia; }
-
-   // public double getTemperatura() { return sensor.getTemperatura(); }
-
-//    public void setTemperatura(double temperatura) { this.temperatura = temperatura; }
-
     public EstadoPozo getEstado() { return estado; }
 
     public void setEstado(EstadoPozo estado)
@@ -102,20 +69,15 @@ public class PozoEntity extends Model {
         if(estado != EstadoPozo.CLAUSURADO)this.estado = estado;
     }
 
-//    public SensorEntity getSensor(){return sensor;}
+    public CampoEntity getCampo() {
+        return campo;
+    }
 
+    public void setCampo(CampoEntity campo) {
+        this.campo = campo;
+    }
 //    public EmergenciaPozo getEmergencia() { return emergencia; }
 //
 //    public void setEmergencia(EmergenciaPozo emergencia) { this.emergencia = emergencia; }
 
-    //@Override
-   // public String toString() {
-     //   return "PozoEntity{" +
-       //         "id=" + id +
-         //       ", caudal ='" + getCaudal() +
-           //     ", consumo de energía=" + getConsumoEnergia() +
-             //   ", temperatura =" + getTemperatura() +
-               // ", estado=" + estado +
-                //'}';
-    //}
 }

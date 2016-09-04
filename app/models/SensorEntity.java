@@ -3,10 +3,10 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.ArrayList;
 
 @Entity
-@Table(name = "sensor")
+@Table(name = "sensores")
 public class SensorEntity extends Model
 {
     public static Finder<Long,SensorEntity> FINDER = new Finder<>(SensorEntity.class);
@@ -35,32 +35,13 @@ public class SensorEntity extends Model
     @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "Sensor")
     private Long id;
 
-    @Column(name = "created_at", updatable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar createdAt;
-
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.DATE)
-    private Calendar updatedAt;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private PozoEntity pozo;
 
-    /**
-     * Se define como la suma de barriles de crudo (petróleo) y fluido (principalmente agua) diarios que la bomba de
-     un equipo de producción extrae del pozo.
-     */
-    private double caudal;
+    @OneToMany(mappedBy = "sensor",cascade = CascadeType.ALL)
+    private ArrayList<RegistroEntity> registros;
 
-    /**
-     * El consumo diario de energía de la bomba dado en kWh (kilowatts-hora).
-     */
-    private double consumoEnergia;
-
-    /**
-     * La temperatura en °C (grados centígrados) del generador principal encargado de energizar la bomba.
-     */
-    private double temperatura;
+    private TipoSensor tipo;
 
     public SensorEntity() {
         this.id=null;
@@ -71,45 +52,34 @@ public class SensorEntity extends Model
         this.id = id;
     }
 
-    public SensorEntity(Long id, double caudal,  double consumoEnergia, double temperatura ) {
+    public SensorEntity(Long id,TipoSensor x ) {
         this.id = id;
-        this.caudal = caudal;
-        this.consumoEnergia = consumoEnergia;
-        this.temperatura = temperatura;
+        this.tipo = x;
+
     }
 
-    public double getCaudal() {
-        return caudal;
+    public Long getId() {
+        return id;
     }
 
-    public void setCaudal(double caudal) {
-        this.caudal = caudal;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public double getConsumoEnergia() {
-        return consumoEnergia;
+    public PozoEntity getPozo() {
+        return pozo;
     }
 
-    public void setConsumoEnergia(double consumoEnergia) {
-        this.consumoEnergia = consumoEnergia;
+    public void setPozo(PozoEntity pozo) {
+        this.pozo = pozo;
     }
 
-    public double getTemperatura() {
-        return temperatura;
+    public TipoSensor getTipo() {
+        return tipo;
     }
 
-    public void setTemperatura(double temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    @PreUpdate
-    private void updateTimestamp() {
-        this.updatedAt = Calendar.getInstance();
-    }
-
-    @PrePersist
-    private void creationTimestamp() {
-        this.createdAt = this.updatedAt = Calendar.getInstance();
+    public void setTipo(TipoSensor tipo) {
+        this.tipo = tipo;
     }
 
 }

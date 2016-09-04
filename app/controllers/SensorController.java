@@ -9,14 +9,13 @@ import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
 import akka.dispatch.MessageDispatcher;
-import mock.SensorEntity;
+import models.SensorEntity;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
 import play.libs.Json;
 import com.fasterxml.jackson.databind.JsonNode;
 import javax.inject.Inject;
 import play.libs.concurrent.HttpExecutionContext;
-import sun.management.Sensor;
 
 public class SensorController extends Controller
 {
@@ -31,8 +30,7 @@ public class SensorController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.getAll(idPozo);
-                           // return SensorEntity.FINDER.all();
+                            return SensorEntity.FINDER.where().eq("pozo",idPozo).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -49,8 +47,8 @@ public class SensorController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.get(id);
-//                            return SensorEntity.FINDER.byId(id);
+
+                            return SensorEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -63,12 +61,12 @@ public class SensorController extends Controller
     public CompletionStage<Result> createSensor()
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        JsonNode nProduct = request().body().asJson();
-        SensorEntity  product = Json.fromJson( nProduct , SensorEntity.class ) ;
+        JsonNode nSensor = request().body().asJson();
+        SensorEntity  sensor = Json.fromJson( nSensor , SensorEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
-                    product.save();
-                    return product;
+                    sensor.save();
+                    return sensor;
                 }
         ).thenApply(
                 sensorEntity -> {
@@ -84,11 +82,9 @@ public class SensorController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            SensorEntity.delete(id);
-                            SensorEntity sensor = SensorEntity.get(id);
-                            return sensor == null;
-//                            SensorEntity.FINDER.deleteById(id);
-//                            return id;
+
+                            SensorEntity.FINDER.deleteById(id);
+                            return id;
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -98,27 +94,20 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updateSensor()
+    public CompletionStage<Result> updateSensor(Long id)
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            JsonNode nProduct = request().body().asJson();
-                            SensorEntity p = Json.fromJson( nProduct , SensorEntity.class ) ;
-                            SensorEntity pPorActualizar =  SensorEntity.get(p.getId());
-//                            ProductEntity.db().update(pPorActualizar);
+                            JsonNode nSensor = request().body().asJson();
+                            SensorEntity s = Json.fromJson( nSensor , SensorEntity.class ) ;
+                            SensorEntity sPorActualizar =  SensorEntity.FINDER.byId(id);
 
-//                            pPorActualizar.setName(p.getName());
-//                            pPorActualizar.setAvailable(p.getAvailable());
-//                            pPorActualizar.setPrice(p.getPrice());
-//                            pPorActualizar.setStock(p.getStock());
-                            pPorActualizar.setTipo(p.getTipo());
+                            sPorActualizar.setTipo(s.getTipo());
 
-                            pPorActualizar.update();
+                            sPorActualizar.update();
 
-                            return pPorActualizar;
+                            return sPorActualizar;
                         }
                         ,ec.current())
                 .thenApply(

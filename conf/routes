@@ -17,25 +17,25 @@ GET     /campo                      controllers.CampoController.getCampos()
 GET     /campo/:id                  controllers.CampoController.getCampo(id : Long)
 POST    /campo                      controllers.CampoController.createCampo()
 DELETE  /campo/:id                  controllers.CampoController.deleteCampo(id : Long)
-PUT     /campo                      controllers.CampoController.updateCampo()
+PUT     /campo/:id                  controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
 GET     /campo/:idCampo/pozo        controllers.PozoController.getPozos(idCampo : Long)
 GET     /pozo/:id                   controllers.PozoController.getPozo(id : Long)
 POST    /pozo                       controllers.PozoController.createPozo()
 DELETE  /pozo/:id                   controllers.PozoController.deletePozo(id: Long)
-PUT     /pozo                       controllers.PozoController.updatePozo()
+PUT     /pozo/:id                   controllers.PozoController.updatePozo(id : Long)
 
 #Servicios Sensores
 GET     /pozo/:idPozo/sensor        controllers.SensorController.getSensores(idPozo : Long)
 GET     /sensor/:id                 controllers.SensorController.getSensor(id : Long)
 POST    /sensor                     controllers.SensorController.createSensor()
 DELETE  /sensor/:id                 controllers.SensorController.deleteSensor(id : Long)
-PUT     /sensor                     controllers.SensorController.updateSensor()
+PUT     /sensor/:id                 controllers.SensorController.updateSensor(id : Long)
 
 #Servicios Registros
 GET     /sensor/:idSensor/registro  controllers.RegistroController.getRegistros(idSensor : Long)
 GET     /registro/:id               controllers.RegistroController.getRegistro(id : Long)
 POST    /registro                   controllers.RegistroController.createRegistro()
 DELETE  /registro/:id               controllers.RegistroController.deleteRegistro(id : Long)
-PUT     /registro                   controllers.RegistroController.updateRegistro()
+PUT     /registro/:id               controllers.RegistroController.updateRegistro(id : Long)

@@ -111,6 +111,7 @@ public class RegistroEntity {
     }
 
 
+
     public void save(){
         lista.add(this);
     }

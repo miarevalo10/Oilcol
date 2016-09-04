@@ -7,7 +7,7 @@ import dispatchers.AkkaDispatcher;
 import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
-import mock.PozoEntity;
+import models.PozoEntity;
 import akka.dispatch.MessageDispatcher;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
@@ -28,8 +28,7 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return PozoEntity.get(idCampo);
-                            //return PozoEntity.FINDER.all();
+                            return PozoEntity.FINDER.where().eq("campo",idCampo).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -46,8 +45,8 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return PozoEntity.getAlone(id);
-                            //return PozoEntity.FINDER.byId(id);
+
+                            return PozoEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -59,13 +58,13 @@ public class PozoController extends Controller
 
     public CompletionStage<Result> createPozo()
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        JsonNode nProduct = request().body().asJson();
-        PozoEntity product = Json.fromJson( nProduct , PozoEntity.class ) ;
+        JsonNode nPozo = request().body().asJson();
+        PozoEntity pozo = Json.fromJson( nPozo , PozoEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
-                    product.save();
-                    return product;
+
+                    pozo.save();
+                    return pozo;
                 }
         ).thenApply(
                 pozoEntity -> {
@@ -81,11 +80,9 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            PozoEntity.delete(id);
-                            PozoEntity pozo = PozoEntity.getAlone(id);
-                            return pozo == null;
-                           // PozoEntity.FINDER.deleteById(id);
-                            //return id;
+
+                            PozoEntity.FINDER.deleteById(id);
+                            return id;
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -95,20 +92,23 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> updatePozo()
+    public CompletionStage<Result> updatePozo(Long id)
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        JsonNode nProduct = request().body().asJson();
-        PozoEntity product = Json.fromJson( nProduct , PozoEntity.class ) ;
+        JsonNode nPozo = request().body().asJson();
+        PozoEntity pozo = Json.fromJson( nPozo , PozoEntity.class ) ;
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            PozoEntity pozo = PozoEntity.getAlone(product.getId());
-                            pozo.setEstado(product.getEstado());
-                            pozo.update();
-                            return pozo;
+
+                            PozoEntity pPorActualizar =  PozoEntity.FINDER.byId(id);
+//                            ProductEntity.db().update(pPorActualizar);
+
+                            pPorActualizar.setEstado(pozo.getEstado());
+
+                            pPorActualizar.update();
+                            return pPorActualizar;
                         }
-                        ,jdbcDispatcher)
+                        ,ec.current())
                 .thenApply(
                         pozoEntities -> {
                             return ok(toJson(pozoEntities));

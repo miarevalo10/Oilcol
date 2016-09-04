@@ -29,7 +29,6 @@ public class CampoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-//                            return CampoEntity.getAll();
                             return CampoEntity.FINDER.all();
                         }
                         ,jdbcDispatcher)
@@ -47,7 +46,6 @@ public class CampoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-//                            return CampoEntity.get(id);
                             return CampoEntity.FINDER.byId(id);
                         }
                         ,jdbcDispatcher)
@@ -59,7 +57,6 @@ public class CampoController extends Controller
     }
 
     public CompletionStage<Result> createCampo(){
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
         JsonNode nCampo = request().body().asJson();
         CampoEntity campo = Json.fromJson(nCampo, CampoEntity.class);
@@ -77,13 +74,9 @@ public class CampoController extends Controller
 
     public CompletionStage<Result> deleteCampo(long id)
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-
         return CompletableFuture.supplyAsync(
                 ()->{
-//                    CampoEntity.delete(id);
-//                    CampoEntity campo = CampoEntity.get(id);
-//                    return campo==null;
+
                     CampoEntity campo = CampoEntity.FINDER.byId(id);
                     CampoEntity.FINDER.deleteById(id);
                     campo = CampoEntity.FINDER.byId(id);
@@ -96,18 +89,14 @@ public class CampoController extends Controller
         );
     }
 
-    public CompletionStage<Result> updateCampo(){
-
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+    public CompletionStage<Result> updateCampo(Long id){
 
         return CompletableFuture.
                 supplyAsync(
                         () -> {
                             JsonNode campo = request().body().asJson();
                             CampoEntity c = Json.fromJson(campo, CampoEntity.class);
-//                            CampoEntity cActualizar = CampoEntity.get(c.getId());
-                            CampoEntity cActualizar = CampoEntity.FINDER.byId(c.getId());
-                            //cActualizar.setAlgo(p.getAlgo());
+                            CampoEntity cActualizar = CampoEntity.FINDER.byId(id);
                             cActualizar.setRegion(c.getRegion());
                             cActualizar.update();
                             return cActualizar;
@@ -120,20 +109,4 @@ public class CampoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createUsuario()
-    {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        JsonNode nProduct = request().body().asJson();
-        CampoEntity product = Json.fromJson( nProduct , CampoEntity.class ) ;
-        return CompletableFuture.supplyAsync(
-                ()->{
-                    product.save();
-                    return product;
-                }
-        ).thenApply(
-                productEntity -> {
-                    return ok(Json.toJson(productEntity));
-                }
-        );
-    }
 }
