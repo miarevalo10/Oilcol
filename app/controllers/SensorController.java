@@ -9,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
 import akka.dispatch.MessageDispatcher;
+import models.PozoEntity;
 import models.SensorEntity;
 import play.mvc.*;
 import java.util.concurrent.CompletionStage;
@@ -30,7 +31,7 @@ public class SensorController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return SensorEntity.FINDER.where().eq("pozo",idPozo).findList();
+                            return SensorEntity.FINDER.where().eq("pozo_id",idPozo).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -58,13 +59,14 @@ public class SensorController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createSensor()
+    public CompletionStage<Result> createSensor(Long idPozo)
     {
-        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
         JsonNode nSensor = request().body().asJson();
         SensorEntity  sensor = Json.fromJson( nSensor , SensorEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
+                    PozoEntity p = PozoEntity.FINDER.byId(idPozo);
+                    sensor.setPozo(p);
                     sensor.save();
                     return sensor;
                 }

@@ -4,6 +4,7 @@ import akka.dispatch.MessageDispatcher;
 import com.fasterxml.jackson.databind.JsonNode;
 import dispatchers.AkkaDispatcher;
 import models.RegistroEntity;
+import models.SensorEntity;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
@@ -30,7 +31,7 @@ public class RegistroController extends Controller {
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return RegistroEntity.FINDER.where().eq("sensor",idSensor).findList();
+                            return RegistroEntity.FINDER.where().eq("sensor_id",idSensor).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -58,12 +59,15 @@ public class RegistroController extends Controller {
                 );
     }
 
-    public CompletionStage<Result> createRegistro()
+    public CompletionStage<Result> createRegistro(Long idSensor)
     {
         JsonNode nRegistro = request().body().asJson();
         RegistroEntity  registro = Json.fromJson( nRegistro , RegistroEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
+
+                    SensorEntity s = SensorEntity.FINDER.byId(idSensor);
+                    registro.setSensor(s);
                     registro.save();
                     return registro;
                 }

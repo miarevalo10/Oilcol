@@ -7,6 +7,7 @@ import dispatchers.AkkaDispatcher;
 import java.util.concurrent.CompletableFuture;
 import static play.libs.Json.toJson;
 
+import models.CampoEntity;
 import models.PozoEntity;
 import akka.dispatch.MessageDispatcher;
 import play.mvc.*;
@@ -28,7 +29,7 @@ public class PozoController extends Controller
         return CompletableFuture.
                 supplyAsync(
                         () -> {
-                            return PozoEntity.FINDER.where().eq("campo",idCampo).findList();
+                            return PozoEntity.FINDER.where().eq("campo_id",idCampo).findList();
                         }
                         ,jdbcDispatcher)
                 .thenApply(
@@ -56,13 +57,14 @@ public class PozoController extends Controller
                 );
     }
 
-    public CompletionStage<Result> createPozo()
+    public CompletionStage<Result> createPozo(Long idCampo)
     {
         JsonNode nPozo = request().body().asJson();
         PozoEntity pozo = Json.fromJson( nPozo , PozoEntity.class ) ;
         return CompletableFuture.supplyAsync(
                 ()->{
-
+                    CampoEntity c = CampoEntity.FINDER.byId(idCampo);
+                    pozo.setCampo(c);
                     pozo.save();
                     return pozo;
                 }
