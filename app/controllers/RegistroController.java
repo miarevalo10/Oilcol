@@ -11,6 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -68,6 +73,16 @@ public class RegistroController extends Controller {
 
                     SensorEntity s = SensorEntity.FINDER.byId(idSensor);
                     registro.setSensor(s);
+//                    String laFecha = "23/09/2016";
+//                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//                    Date startDate = null;
+//                    try {
+//                        startDate = df.parse(laFecha);
+//
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+                    registro.setCreatedAt(new Date());
                     registro.save();
                     return registro;
                 }
@@ -122,5 +137,34 @@ public class RegistroController extends Controller {
                 );
     }
 
+    public CompletionStage<Result> getRegistroFecha(String fechaI, String fechaF)
+    {
+        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
 
-}
+        return CompletableFuture.
+                supplyAsync(
+                        () -> {
+                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                            Date startDate = null;
+                            Date endDate = null;
+                            try {
+                                startDate = df.parse(fechaI);
+                                endDate = df.parse(fechaF);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println(startDate + " to " + endDate + " ");
+                            List<RegistroEntity> r = RegistroEntity.FINDER.where().between("created_at" , startDate , endDate).findList();
+                            return r;
+
+                        }
+                        ,jdbcDispatcher)
+                .thenApply(
+                        registroEntities -> {
+                            return ok(toJson(registroEntities));
+                        }
+                );
+//    }
+
+
+}}

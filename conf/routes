@@ -39,3 +39,4 @@ GET     /registro/:id               controllers.RegistroController.getRegistro(i
 POST    /sensor/:idSensor/registro  controllers.RegistroController.createRegistro(idSensor : Long)
 DELETE  /registro/:id               controllers.RegistroController.deleteRegistro(id : Long)
 PUT     /registro/:id               controllers.RegistroController.updateRegistro(id : Long)
+GET     /registro/porFecha/         controllers.RegistroController.getRegistroFecha(from : String, to : String)

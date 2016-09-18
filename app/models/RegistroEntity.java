@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by maria on 4/09/2016.
@@ -24,7 +24,7 @@ public class RegistroEntity extends Model
 
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.DATE)
-    private Calendar createdAt;
+    private Date createdAt;
 
     private double medida;
 
@@ -59,11 +59,11 @@ public class RegistroEntity extends Model
         this.sensor = sensor;
     }
 
-    public Calendar getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Calendar createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -75,10 +75,10 @@ public class RegistroEntity extends Model
         this.medida = medida;
     }
 
-    @PrePersist
-    private void creationTimestamp() {
-        this.createdAt = Calendar.getInstance();
-    }
+//    @PrePersist
+//    private void creationTimestamp() {
+//        this.createdAt = Calendar.getInstance();
+//    }
 
 
 
