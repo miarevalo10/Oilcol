@@ -1,8 +1,15 @@
 package controllers;
 
+import play.api.Play;
 import play.mvc.*;
 
+
 import views.html.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -19,5 +26,8 @@ public class HomeController extends Controller {
     public Result index() {
         return ok(index.render("Your new application is ready."));
     }
+
+
+
 
 }
