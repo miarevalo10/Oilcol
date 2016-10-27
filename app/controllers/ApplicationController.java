@@ -16,12 +16,12 @@ public class ApplicationController extends Controller{
     public String getURI( String any){
         String resp = "";
         switch (any) {
-            case "electricidad/submenu.html":
-                resp = "/app/views/submenu.html";
+            case "modules/campo/campo":
+                resp = "/public/modules/campo/campo.html";
                 break;
 
-            case "region/detail":
-                resp = "/public/region/detail.html";
+            case "modules/pozo/pozo":
+                resp = "/public/modules/pozo/pozo.html";
                 break;
 
 

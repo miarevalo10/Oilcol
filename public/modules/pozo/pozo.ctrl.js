@@ -3,13 +3,13 @@
  */
 (function (ng) {
 
-    var mod = ng.module("campoModule");
-    console.log("llega al ctrl")
+    var mod = ng.module("pozoModule");
+    console.log("llega al ctrl de pozo")
 
 // the list controller
-    mod.controller("campoCtrl", ["$scope", "$resource", function($scope, $resource) {
-        var campos = $resource("/campo"); // a RESTful-capable resource object
-        $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
+    mod.controller("pozoCtrl", ["$scope", "$resource", function($scope, $resource) {
+        var pozos = $resource("/campo/1/pozo"); // a RESTful-capable resource object
+        $scope.pozos = pozos.query(); // for the list of regiones in public/html/main.html
     }]);
 
 // the create controller

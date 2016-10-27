@@ -13,7 +13,7 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 # Map to views
-GET      /*any             controllers.ApplicationController.loadPublicHTML(any)
+GET      /views/*any             controllers.ApplicationController.loadPublicHTML(any)
 
 
 #Servicios Campos

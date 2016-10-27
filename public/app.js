@@ -7,7 +7,8 @@
 
         "ngResource",
         "ngRoute",
-        "campoModule"
+        "campoModule",
+        "pozoModule"
 
 
     ]);
@@ -15,10 +16,15 @@
      // mod.constant("url","/api");
 
     mod.config(["$routeProvider", function($routeProvider) {
-        return $routeProvider.when("campo", {
-            templateUrl: "modules/campo/campo.tpl",
+        return $routeProvider.when("/reportes/campo", {
+            templateUrl: "/views/modules/campo/campo",
             controller: "campoCtrl"
-         });
+         }).when("/reportes/pozo", {
+            templateUrl: "/views/modules/pozo/pozo",
+            controller: "pozoCtrl"
+        }).when("/campo/:id/pozo", {
+            templateUrl: "/views/modules/pozo/pozo",
+            controller: "pozoCtrl"});
             //.when("/region/create", {
         //     templateUrl: "/views/region/detail",
         //     controller: "regionCreateCtrl"

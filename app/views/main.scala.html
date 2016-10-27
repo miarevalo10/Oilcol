@@ -349,8 +349,8 @@
                             <li>
                                 <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Reportes Electricidad</span><span class="label label-important"> 3 </span></a>
                                 <ul>
-                                    <li><a class="submenu" ng-ref="campo"><i class="icon-file-alt"></i><span class="hidden-tablet"> Campo </span></a></li>
-                                    <li><a class="submenu" href="pozo/submenu2.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Pozo </span></a></li>
+                                    <li><a class="submenu" ng-href="/reportes/campo"><i class="icon-file-alt"></i><span class="hidden-tablet"> Campo </span></a></li>
+                                    <li><a class="submenu" ng-href="/reportes/pozo"><i class="icon-file-alt"></i><span class="hidden-tablet"> Pozo </span></a></li>
                                     <li><a class="submenu" href="temperatura/submenu3.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 3</span></a></li>
                                     <li><a class="submenu" href="submenu3.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Sub Menu 3</span></a></li>
                                 </ul>
@@ -387,9 +387,10 @@
 
                     @*<!-- start: Content -->*@
                 <div id="content" class="span10">
-
-
-                    @*<ul class="breadcrumb">*@
+                    <div class="span12">
+                    <div data-ng-view></div>
+                    </div>
+                        @*<ul class="breadcrumb">*@
                         @*<li>*@
                             @*<i class="icon-home"></i>*@
                             @*<a href="main.scala.html">Home</a>*@
@@ -1120,9 +1121,15 @@
         <script src="@routes.Assets.versioned("javascripts/jquery.knob.modified.js")"></script>
 
         <script src="@routes.Assets.versioned("javascripts/jquery.sparkline.min.js")"></script>
+
         <script src="@routes.Assets.versioned("app.js")"></script>
-        <script src="@routes.Assets.versioned("modules/campo/campo.ctrl.js")"></script>
+
         <script src="@routes.Assets.versioned("modules/campo/campo.mod.js")"></script>
+        <script src="@routes.Assets.versioned("modules/campo/campo.ctrl.js")"></script>
+
+        <script src="@routes.Assets.versioned("modules/pozo/pozo.mod.js")"></script>
+        <script src="@routes.Assets.versioned("modules/pozo/pozo.ctrl.js")"></script>
+
 
 
 

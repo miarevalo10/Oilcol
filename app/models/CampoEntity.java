@@ -37,11 +37,11 @@ public class CampoEntity extends Model {
         this.id = id;
     }
 
-    public Long getIdCampo() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdCampo(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
