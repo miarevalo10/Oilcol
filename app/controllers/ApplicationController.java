@@ -20,6 +20,10 @@ public class ApplicationController extends Controller{
                 resp = "/public/modules/campo/campo.html";
                 break;
 
+            case "modules/campo/crearCampo":
+                resp = "/public/modules/campo/crearCampo.html";
+                break;
+
             case "modules/pozo/pozo":
                 resp = "/public/modules/pozo/pozo.html";
                 break;

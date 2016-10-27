@@ -10,20 +10,33 @@
     mod.controller("campoCtrl", ["$scope", "$resource", function($scope, $resource) {
         var campos = $resource("/campo"); // a RESTful-capable resource object
         $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
+
+        $scope.delete = function(id) {
+
+            var delCampo = $resource( "/campo/" + id); // a RESTful-capable resource object
+            delCampo.delete();
+            // $scope.go('reportes/campo');  // go back to public/html/main.html
+            // Find index of the user
+            var index = $scope.campos.indexOf(id);
+            // Remove user from array
+            $scope.campos.splice(index, 1);
+
+            console.log("Se eliminó el campo " + id );
+        };
     }]);
 
 // the create controller
-//     mod.controller("campoCreateCtrl", ["$scope", "$resource", "$timeout",  function($scope, $resource, $timeout) {
-//
-//         $scope.save = function() {
-//             var createCampo = $resource("/campos"); // a RESTful-capable resource object
-//             createCampo.save($scope.campo); // $scope.region comes from the detailForm in public/html/detail.html
-//             $timeout(function() { $scope.go('/campos'); }); // go back to public/html/main.html
-//         };
-//     }]);
+    mod.controller("crearCampoCtrl", ["$scope", "$resource", "$timeout",  function($scope, $resource, $timeout) {
+
+        $scope.save = function() {
+            var createCampo = $resource("/campo"); // a RESTful-capable resource object
+            createCampo.save($scope.campo); // $scope.region comes from the detailForm in public/html/detail.html
+            $timeout(function() { $scope.go('reportes/campo'); }); // go back to public/html/main.html
+        };
+    }]);
 
 // the edit controller
-//     mod.controller("regionEditCtrl", ["$scope", "$resource", "$routeParams", "$timeout", "apiUrl", function($scope, $resource, $routeParams, $timeout, apiUrl) {
+//      mod.controller("regionEditCtrl", ["$scope", "$resource", "$routeParams", "$timeout", "apiUrl", function($scope, $resource, $routeParams, $timeout) {
 //         var ShowRegion = $resource(apiUrl +"/regiones/:id", {id:"@id"}); // a RESTful-capable resource object
 //         if ($routeParams.id) {
 //             // retrieve the corresponding celebrity from the database
@@ -49,12 +62,12 @@
 //             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
 //         };
 //
-//         // to delete a region
-//         $scope.delete = function() {
-//             var DeleteRegion = $resource( apiUrl +"/regiones/" + $routeParams.id); // a RESTful-capable resource object
-//             DeleteRegion.delete();
-//             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
-//         };
-//     }]);
+         // to delete a region
+         // $scope.delete = function() {
+         //     var delCampo = $resource( "/campo/" + $routeParams.id); // a RESTful-capable resource object
+         //    delCampo.delete();
+         //     $timeout(function() { $scope.go('/reportes/campo'); }); // go back to public/html/main.html
+         //  };
+     // }]);
 
 })(window.angular)

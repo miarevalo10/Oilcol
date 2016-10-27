@@ -22,13 +22,18 @@
          }).when("/reportes/pozo", {
             templateUrl: "/views/modules/pozo/pozo",
             controller: "pozoCtrl"
-        }).when("/campo/:id/pozo", {
-            templateUrl: "/views/modules/pozo/pozo",
-            controller: "pozoCtrl"});
-            //.when("/region/create", {
-        //     templateUrl: "/views/region/detail",
-        //     controller: "regionCreateCtrl"
-        // }).when("/region/edit/:id", {
+        }).when("/campo/create", {
+            templateUrl: "/views/modules/campo/crearCampo",
+            controller: "crearCampoCtrl"
+        }).when("/campo/delete", {
+            templateUrl: "/views/modules/campo/crearCampo",
+            controller: "crearCampoCtrl"
+        });
+        // when("/region/create", {
+        //      templateUrl: "/views/region/detail",
+        //      controller: "regionCreateCtrl"
+        //  });
+           // .when("/region/edit/:id", {
         //     templateUrl: "/views/region/detail",
         //     controller: "regionEditCtrl"
         // }).when("/campo", {

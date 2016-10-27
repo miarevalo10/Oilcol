@@ -3,9 +3,7 @@
         <div class="box-header" data-original-title>
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Campos</h2>
             <div class="box-icon">
-                <a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-                <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-                <a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+                <a ng-href="/campo/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
             </div>
         </div>
         <div class="box-content">
@@ -20,23 +18,22 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="campo in campos| orderBy:['region']">
-                    <td class="center">{{campo.id}}</td>
-                    <td class="center">{{campo.region}}</td>
+                    <td class="center" data-ng-model="campo.id">{{campo.id}}</td>
+                    <td class="center" data-ng-model="campo.region">{{campo.region}}</td>
                     <td class="center">
                         <span class="label label-success">En produccion</span>
                     </td>
                     <td class="center">
-                        <a class="btn btn-success" href="#">
+                        <a class="btn btn-success" ng-href="/campo/{{campo.id}}/pozo">
                             <i class="halflings-icon white zoom-in"></i>
                         </a>
                         <a class="btn btn-info" href="#">
                             <i class="halflings-icon white edit"></i>
                         </a>
-                        <a class="btn btn-danger" href="#">
+                        <a class="btn btn-danger" data="{{campo.id}}" data-ng-click="delete(campo.id)" >
                             <i class="halflings-icon white trash"></i>
                         </a>
                     </td>
-                    <td class="center"><a ng-href="/campo/{{campo.id}}/pozo"><i class="glyphicon glyphicon-pencil"></i></a></td>
                 </tr>
 
                 </tbody>
