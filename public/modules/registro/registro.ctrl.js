@@ -9,6 +9,7 @@
 // the list controller
     mod.controller("registroCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
         $scope.idSensor = $routeParams.idSensor;
+        $scope.fecha = false;
         var registro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
         $scope.registros = registro.query(); // for the list of regiones in public/html/main.html
         console.log("/sensor/"+$routeParams.idSensor+"/registro");
@@ -24,6 +25,15 @@
             $scope.registros.splice(index, 1);
 
             console.log( "/registro/" + id);
+        };
+        $scope.buscarFecha = function(from, to) {
+            $scope.fecha = true;
+            console.log("/registro/porFecha/?from="+from+"&to="+to);
+            var buscarFecha = $resource( "/registro/porFecha/?from="+from+"&to="+to); // a RESTful-capable resource object
+            $scope.registrosF = buscarFecha.query();
+            // Find index of the user
+
+            // console.log( "/registro/" + id);
         };
     }]);
 
