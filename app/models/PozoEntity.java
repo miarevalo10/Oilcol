@@ -36,7 +36,7 @@ public class PozoEntity extends Model {
 
     private EstadoPozo estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private CampoEntity campo;
 
     public PozoEntity() {

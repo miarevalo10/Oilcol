@@ -19,7 +19,7 @@
                 <tbody>
                 <tr ng-repeat="registro in registros">
                     <td class="center">{{registro.id}}</td>
-                    <td class="center">{{registro.createdAt}}</td>
+                    <td class="center">{{registro.createdAt| date:'yyyy-MM-dd HH:mm Z'}}</td>
                     <td class="center">{{registro.medida}}</td>
 
                     <td class="center">

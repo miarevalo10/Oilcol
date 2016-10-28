@@ -12,6 +12,7 @@
         var registro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
         $scope.registros = registro.query(); // for the list of regiones in public/html/main.html
         console.log("/sensor/"+$routeParams.idSensor+"/registro");
+        var date =  new Date();
 
         $scope.delete = function(id) {
 

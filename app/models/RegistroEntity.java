@@ -19,7 +19,7 @@ public class RegistroEntity extends Model
     @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "Registro")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private SensorEntity sensor;
 
     @Column(name = "created_at", updatable = false)

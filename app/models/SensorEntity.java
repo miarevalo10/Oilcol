@@ -35,7 +35,7 @@ public class SensorEntity extends Model
     @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "Sensor")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private PozoEntity pozo;
 
     @OneToMany(mappedBy = "sensor",cascade = CascadeType.ALL)
