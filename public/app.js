@@ -13,24 +13,25 @@
         "registroModule"
     ]);
 
-     // mod.constant("url","/api");
-
     mod.config(["$routeProvider", function($routeProvider) {
         return $routeProvider.when("/reportes/campo", {// Muestra todos los campos
             templateUrl: "/views/modules/campo/campo",
             controller: "campoCtrl"
-         }).when("/reportes/pozo", { //Muestra todos los pozos
-            templateUrl: "/views/modules/pozo/pozo",
-            controller: "pozoCtrl"
-        }).when("/campo/create", {//Crea un campo
+         }).when("/campo/create", {//Crea un campo
             templateUrl: "/views/modules/campo/crearCampo",
             controller: "crearCampoCtrl"
+        }).when("/campo/:idCampo/update", {//edita un campo
+            templateUrl: "/views/modules/campo/crearCampo",
+            controller: "editarCampoCtrl"
         }).when("/campo/:idCampo/pozo/create", { //crea un pozo, dado un campo
             templateUrl: "/views/modules/pozo/crearPozo",
             controller: "crearPozoCtrl"
         }).when("/campo/:idCampo/pozo", { //pozos de un campo
             templateUrl: "/views/modules/pozo/pozo",
             controller: "pozoCtrl"
+        }).when("/pozo/:idPozo/update", {//edita un pozo
+            templateUrl: "/views/modules/pozo/crearPozo",
+            controller: "editarPozoCtrl"
         }).when("/pozo/:idPozo/sensor", { //sensores de un pozo
             templateUrl: "/views/modules/sensor/sensor",
             controller: "sensorCtrl"
@@ -43,6 +44,9 @@
         }).when("/sensor/:idSensor/registro/create", { //crea un registro, dado un sensor
             templateUrl: "/views/modules/registro/crearRegistro",
             controller: "crearSensorCtrl"
+        }).when("/sensor/:idSensor/update", {//edita un sensor
+            templateUrl: "/views/modules/sensor/crearSensor",
+            controller: "editarSensorCtrl"
         });
 
         // .when("/inicio", {
