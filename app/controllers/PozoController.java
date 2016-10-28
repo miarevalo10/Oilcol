@@ -95,7 +95,7 @@ public class PozoController extends Controller
     public CompletionStage<Result> deletePozo(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
-        System.out.println("El id a eliminar" + id);
+        System.out.println("El id a eliminar :)" + id);
 
         return CompletableFuture.
                 supplyAsync(

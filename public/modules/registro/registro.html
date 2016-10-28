@@ -1,32 +1,32 @@
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>
-            <h2><i class="halflings-icon white user"></i><span class="break"></span>Campos</h2>
+            <h2><i class="halflings-icon white user"></i><span class="break"></span>Registros del sensor {{idSensor}}</h2>
             <div class="box-icon">
-                <a ng-href="/campo/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
+                <a ng-href="/sensor/{{idSensor}}/registro/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
             </div>
         </div>
         <div class="box-content">
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr>
-                    <th>ID Campo</th>
-                    <th>Region</th>
+                    <th>Id Registro</th>
+                    <th>Fecha de creacion</th>
+                    <th>Medida</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="campo in campos| orderBy:['region']">
-                    <td class="center" data-ng-model="campo.id">{{campo.id}}</td>
-                    <td class="center" data-ng-model="campo.region">{{campo.region}}</td>
+                <tr ng-repeat="registro in registros">
+                    <td class="center">{{registro.id}}</td>
+                    <td class="center">{{registro.createdAt}}</td>
+                    <td class="center">{{registro.medida}}</td>
+
                     <td class="center">
-                        <a class="btn btn-success" ng-href="/campo/{{campo.id}}/pozo">
-                            <i class="halflings-icon white zoom-in"></i>
-                        </a>
                         <a class="btn btn-info" href="#">
                             <i class="halflings-icon white edit"></i>
                         </a>
-                        <a class="btn btn-danger" data="{{campo.id}}" data-ng-click="delete(campo.id)" >
+                        <a class="btn btn-danger" data="{{pozo.id}}" data-ng-click="delete(pozo.id)" >
                             <i class="halflings-icon white trash"></i>
                         </a>
                     </td>

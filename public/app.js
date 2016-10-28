@@ -8,7 +8,9 @@
         "ngResource",
         "ngRoute",
         "campoModule",
-        "pozoModule"
+        "pozoModule",
+        "sensorModule",
+        "registroModule"
     ]);
 
      // mod.constant("url","/api");
@@ -23,46 +25,28 @@
         }).when("/campo/create", {//Crea un campo
             templateUrl: "/views/modules/campo/crearCampo",
             controller: "crearCampoCtrl"
-        }).when("/campo/:id/pozo/create", { //crea un pozo, dado un campo
+        }).when("/campo/:idCampo/pozo/create", { //crea un pozo, dado un campo
             templateUrl: "/views/modules/pozo/crearPozo",
             controller: "crearPozoCtrl"
-        }).when("/campo/:id/pozo", { //pozos de un campo
+        }).when("/campo/:idCampo/pozo", { //pozos de un campo
             templateUrl: "/views/modules/pozo/pozo",
             controller: "pozoCtrl"
+        }).when("/pozo/:idPozo/sensor", { //sensores de un pozo
+            templateUrl: "/views/modules/sensor/sensor",
+            controller: "sensorCtrl"
+        }).when("/pozo/:idPozo/sensor/create", { //crea un sensor, dado un pozo
+            templateUrl: "/views/modules/sensor/crearSensor",
+            controller: "crearSensorCtrl"
+        }).when("/sensor/:idSensor/registro", { //registros de un sensor
+            templateUrl: "/views/modules/registro/registro",
+            controller: "registroCtrl"
+        }).when("/sensor/:idSensor/registro/create", { //crea un registro, dado un sensor
+            templateUrl: "/views/modules/registro/crearRegistro",
+            controller: "crearSensorCtrl"
         });
-        // when("/region/create", {
-        //      templateUrl: "/views/region/detail",
-        //      controller: "regionCreateCtrl"
-        //  });
-           // .when("/region/edit/:id", {
-        //     templateUrl: "/views/region/detail",
-        //     controller: "regionEditCtrl"
-        // }).when("/campo", {
-        //     templateUrl: "/views/campo/main",
-        //     controller: "campoListCtrl"
-        // }).when("/region/:id/campo/create", {
-        //     templateUrl: "/views/campo/detail",
-        //     controller: "campoCreateCtrl"
-        // }).when("/campo/edit/:id", {
-        //     templateUrl: "/views/campo/detail",
-        //     controller: "campoEditCtrl"
-        // }).when("/pozo", {
-        //     templateUrl: "/views/pozo/main",
-        //     controller: "pozoListCtrl"
-        // }).when("/campo/:id/pozo/create", {
-        //     templateUrl: "/views/pozo/detail",
-        //     controller: "pozoCreateCtrl"
-        // }).when("/pozo/edit/:id", {
-        //     templateUrl: "/views/pozo/detail",
-        //     controller: "pozoEditCtrl"
-        // }).when("/sensor", {
-        //     templateUrl: "/views/sensor/main",
-        //     controller: "sensorListCtrl"
-        // }).when("/sensor/edit/:id", {
-        //     templateUrl: "/views/sensor/detail",
-        //     controller: "sensorEditCtrl"
-        // }).when("/inicio",
-        //     {templateUrl:"/views/inicio"
+
+        // .when("/inicio", {
+        //         templateUrl:"/views/inicio"
         //     }).otherwise({
         //     redirectTo: "/inicio"
         // });

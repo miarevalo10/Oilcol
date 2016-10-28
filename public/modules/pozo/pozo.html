@@ -1,11 +1,9 @@
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>
-            <h2><i class="halflings-icon white user"></i><span class="break"></span>Pozos</h2>
+            <h2><i class="halflings-icon white user"></i><span class="break"></span>Pozos del campo {{idCampo}}</h2>
             <div class="box-icon">
-                <a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-                <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-                <a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+                <a ng-href="/campo/{{idCampo}}/pozo/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
             </div>
         </div>
         <div class="box-content">
@@ -13,7 +11,7 @@
                 <thead>
                 <tr>
                     <th>Id Pozo</th>
-                    <th>Id Campo</th>
+                    <!--<th>Id Campo</th>-->
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -21,20 +19,20 @@
                 <tbody>
                 <tr ng-repeat="pozo in pozos| orderBy:['id']">
                     <td class="center">{{pozo.id}}</td>
-                    <td class="center">{{pozo.campo.id}}</td>
+                    <!--<td class="center">{{pozo.campo.id}}</td>-->
                     <td class="center">
-                        <span class="label label-success">En produccion</span>
+                        <span class="label label-success">{{pozo.estado}}</span>
                     </td>
                     <td class="center">
-                        <a class="btn btn-success" href="#">
+                        <a class="btn btn-success" ng-href="/pozo/{{pozo.id}}/sensor">
                             <i class="halflings-icon white zoom-in"></i>
                         </a>
                         <a class="btn btn-info" href="#">
                             <i class="halflings-icon white edit"></i>
                         </a>
-                        <a class="btn btn-danger" data="{{pozo.id}}" data-ng-click="delete(pozo.id)" >
-                            <i class="halflings-icon white trash"></i>
-                        </a>
+                        <!--<a class="btn btn-danger" data="{{pozo.id}}" data-ng-click="delete(pozo.id)" >-->
+                            <!--<i class="halflings-icon white trash"></i>-->
+                        <!--</a>-->
                     </td>
                 </tr>
 

@@ -28,6 +28,26 @@ public class ApplicationController extends Controller{
                 resp = "/public/modules/pozo/pozo.html";
                 break;
 
+            case "modules/pozo/crearPozo":
+                resp = "/public/modules/pozo/crearPozo.html";
+                break;
+
+            case "modules/sensor/sensor":
+                resp = "/public/modules/sensor/sensor.html";
+                break;
+
+            case "modules/sensor/crearSensor":
+                resp = "/public/modules/sensor/crearSensor.html";
+                break;
+
+            case "modules/registro/registro":
+                resp = "/public/modules/registro/registro.html";
+                break;
+
+            case "modules/registro/crearRegistro":
+                resp = "/public/modules/registro/crearRegistro.html";
+                break;
+
 
         }
         return resp;

@@ -3,40 +3,40 @@
  */
 (function (ng) {
 
-    var mod = ng.module("campoModule");
-    console.log("llega al ctrl")
+    var mod = ng.module("sensorModule");
+    console.log("llega al ctrl de sensor")
 
-// the list controller
-    mod.controller("campoCtrl", ["$scope", "$resource", function($scope, $resource) {
-        var campos = $resource("/campo"); // a RESTful-capable resource object
-        $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
+    mod.controller("sensorCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
+        $scope.idPozo = $routeParams.idPozo;
+        var sensor = $resource("/pozo/"+$routeParams.idPozo+"/sensor"); // a RESTful-capable resource object
+        $scope.sensores = sensor.query(); // for the list of regiones in public/html/main.html
+        console.log("/pozo/"+$routeParams.idPozo+"/sensor")
 
-        // $scope.delete = function(id) {
-        //
-        //     var delCampo = $resource( "/campo/" + id); // a RESTful-capable resource object
-        //     delCampo.delete();
-        //     // $scope.go('reportes/campo');  // go back to public/html/main.html
-        //     // Find index of the user
-        //     var index = $scope.campos.indexOf(id);
-        //     // Remove user from array
-        //     $scope.campos.splice(index, 1);
-        //
-        //     console.log("Se eliminó el campo " + id );
-        // };
+        $scope.delete = function(id) {
+
+            var delSensor = $resource( "/sensor/" + id); // a RESTful-capable resource object
+            delSensor.delete();
+            // Find index of the user
+            var index = $scope.sensores.indexOf(id);
+            // Remove user from array
+            $scope.sensores.splice(index, 1);
+
+            console.log( "/sensor/" + id);
+        };
     }]);
 
-// the create controller
-    mod.controller("crearCampoCtrl", ["$scope", "$resource", "$timeout",  function($scope, $resource, $timeout) {
+    // the create controller
+    mod.controller("crearSensorCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
 
         $scope.save = function() {
-            var createCampo = $resource("/campo"); // a RESTful-capable resource object
-            createCampo.save($scope.campo); // $scope.region comes from the detailForm in public/html/detail.html
-            $timeout(function() { $scope.go('reportes/campo'); }); // go back to public/html/main.html
+            var crearSensor = $resource("/pozo/"+$routeParams.idPozo+"/sensor"); // a RESTful-capable resource object
+            crearSensor.save($scope.sensor); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
+            $timeout(function() { $scope.go('/pozo/'+$routeParams.idPozo+'/sensor'); }); // go back to public/html/main.html
         };
     }]);
 
 // the edit controller
-//      mod.controller("regionEditCtrl", ["$scope", "$resource", "$routeParams", "$timeout", "apiUrl", function($scope, $resource, $routeParams, $timeout) {
+//     mod.controller("regionEditCtrl", ["$scope", "$resource", "$routeParams", "$timeout", "apiUrl", function($scope, $resource, $routeParams, $timeout, apiUrl) {
 //         var ShowRegion = $resource(apiUrl +"/regiones/:id", {id:"@id"}); // a RESTful-capable resource object
 //         if ($routeParams.id) {
 //             // retrieve the corresponding celebrity from the database
@@ -62,7 +62,6 @@
 //             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
 //         };
 //
-
-     // }]);
+//     }]);
 
 })(window.angular)

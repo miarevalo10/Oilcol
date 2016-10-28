@@ -3,36 +3,36 @@
  */
 (function (ng) {
 
-    var mod = ng.module("pozoModule");
-    console.log("llega al ctrl de pozo")
+    var mod = ng.module("registroModule");
+    console.log("llega al ctrl del registro")
 
 // the list controller
-    mod.controller("pozoCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
-        $scope.idCampo = $routeParams.idCampo;
-        var pozos = $resource("/campo/"+$routeParams.idCampo+"/pozo"); // a RESTful-capable resource object
-        $scope.pozos = pozos.query(); // for the list of regiones in public/html/main.html
-        console.log("/campo/"+$routeParams.idCampo+"/pozo")
+    mod.controller("registroCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
+        $scope.idSensor = $routeParams.idSensor;
+        var registro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
+        $scope.registros = registro.query(); // for the list of regiones in public/html/main.html
+        console.log("/sensor/"+$routeParams.idSensor+"/registro");
 
         $scope.delete = function(id) {
 
-            var delPozo = $resource( "/pozo/" + id); // a RESTful-capable resource object
-            delPozo.delete();
+            var delRegistro = $resource( "/registro/" + id); // a RESTful-capable resource object
+            delRegistro.delete();
             // Find index of the user
             var index = $scope.pozos.indexOf(id);
             // Remove user from array
-            $scope.pozos.splice(index, 1);
+            $scope.registros.splice(index, 1);
 
-            console.log( "/pozo/" + id);
+            console.log( "/registro/" + id);
         };
     }]);
 
     // the create controller
-    mod.controller("crearPozoCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
+    mod.controller("crearRegistroCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
 
         $scope.save = function() {
-            var crearPozo = $resource("/campo/"+$routeParams.idCampo+"/pozo"); // a RESTful-capable resource object
-            crearPozo.save($scope.pozo); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
-            $timeout(function() { $scope.go('/campo/'+$routeParams.idCampo+'/pozo'); }); // go back to public/html/main.html
+            var crearRegistro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
+            crearRegistro.save($scope.sensor); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
+            $timeout(function() { $scope.go('/sensor/'+$routeParams.id+'/registro'); }); // go back to public/html/main.html
         };
     }]);
 

@@ -66,7 +66,8 @@ public class PozoEntity extends Model {
 
     public void setEstado(EstadoPozo estado)
     {
-        if(estado != EstadoPozo.CLAUSURADO)this.estado = estado;
+//        if(estado != EstadoPozo.CLAUSURADO)
+        this.estado = estado;
     }
 
     public CampoEntity getCampo() {
