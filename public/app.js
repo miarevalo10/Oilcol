@@ -9,25 +9,26 @@
         "ngRoute",
         "campoModule",
         "pozoModule"
-
-
     ]);
 
      // mod.constant("url","/api");
 
     mod.config(["$routeProvider", function($routeProvider) {
-        return $routeProvider.when("/reportes/campo", {
+        return $routeProvider.when("/reportes/campo", {// Muestra todos los campos
             templateUrl: "/views/modules/campo/campo",
             controller: "campoCtrl"
-         }).when("/reportes/pozo", {
+         }).when("/reportes/pozo", { //Muestra todos los pozos
             templateUrl: "/views/modules/pozo/pozo",
             controller: "pozoCtrl"
-        }).when("/campo/create", {
+        }).when("/campo/create", {//Crea un campo
             templateUrl: "/views/modules/campo/crearCampo",
             controller: "crearCampoCtrl"
-        }).when("/campo/delete", {
-            templateUrl: "/views/modules/campo/crearCampo",
-            controller: "crearCampoCtrl"
+        }).when("/campo/:id/pozo/create", { //crea un pozo, dado un campo
+            templateUrl: "/views/modules/pozo/crearPozo",
+            controller: "crearPozoCtrl"
+        }).when("/campo/:id/pozo", { //pozos de un campo
+            templateUrl: "/views/modules/pozo/pozo",
+            controller: "pozoCtrl"
         });
         // when("/region/create", {
         //      templateUrl: "/views/region/detail",

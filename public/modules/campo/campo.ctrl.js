@@ -62,12 +62,7 @@
 //             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
 //         };
 //
-         // to delete a region
-         // $scope.delete = function() {
-         //     var delCampo = $resource( "/campo/" + $routeParams.id); // a RESTful-capable resource object
-         //    delCampo.delete();
-         //     $timeout(function() { $scope.go('/reportes/campo'); }); // go back to public/html/main.html
-         //  };
+
      // }]);
 
 })(window.angular)

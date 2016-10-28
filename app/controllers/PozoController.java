@@ -22,6 +22,23 @@ public class PozoController extends Controller
     @Inject HttpExecutionContext ec;
 
 
+    public CompletionStage<Result> getAllPozos()
+    {
+        MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+
+        return CompletableFuture.
+                supplyAsync(
+                        () -> {
+                            return PozoEntity.FINDER.all();
+                        }
+                        ,jdbcDispatcher)
+                .thenApply(
+                        productEntities -> {
+                            return ok(toJson(productEntities));
+                        }
+                );
+    }
+
     public CompletionStage<Result> getPozos(Long idCampo)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
@@ -78,6 +95,7 @@ public class PozoController extends Controller
     public CompletionStage<Result> deletePozo(Long id)
     {
         MessageDispatcher jdbcDispatcher = AkkaDispatcher.jdbcDispatcher;
+        System.out.println("El id a eliminar" + id);
 
         return CompletableFuture.
                 supplyAsync(

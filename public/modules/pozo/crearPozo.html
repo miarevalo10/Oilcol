@@ -5,10 +5,10 @@
             <div data-ng-show="campo.id"><h2>Detalles del campo</h2></div>
         </div>
         <div class="box-content">
-            <form name="crearCampo" role="form" class="form-horizontal">
+            <form name="crearPozo" role="form" class="form-horizontal">
                 <fieldset>
                     <div class="control-group">
-                        <label class="control-label" for="region">Seleccione una region</label>
+                        <label class="control-label" for="region">Seleccione un campo</label>
                         <div class="controls">
                             <select data-rel="chosen" id=region name="region" data-ng-model="campo.region">
                                 <option>Andina</option>
@@ -19,10 +19,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="control-group">
+                        <label class="control-label" for="focusedInput"></label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+                        </div>
+                    </div>
 
                     <div class="form-actions">
-                        <button data-ng-click="save()" data-ng-disabled="noChange() || crearCampo.$invalid" type="submit" class="btn btn-primary">Guardar</button>
-                        <button data-ng-click="go('reportes/campo')" class="btn">Cancelar</button>
+                        <button data-ng-click="save()" data-ng-disabled="noChange() || crearPozo.$invalid" type="submit" class="btn btn-primary">Guardar</button>
+                        <button data-ng-click="go('reportes/pozo')" class="btn">Cancelar</button>
                     </div>
                 </fieldset>
             </form>

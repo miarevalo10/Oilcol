@@ -7,20 +7,33 @@
     console.log("llega al ctrl de pozo")
 
 // the list controller
-    mod.controller("pozoCtrl", ["$scope", "$resource", function($scope, $resource) {
-        var pozos = $resource("/campo/1/pozo"); // a RESTful-capable resource object
+    mod.controller("pozoCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
+        var pozos = $resource("/campo/"+$routeParams.id+"/pozo"); // a RESTful-capable resource object
         $scope.pozos = pozos.query(); // for the list of regiones in public/html/main.html
+        console.log("/campo/"+$routeParams.id+"/pozo")
+
+        $scope.delete = function(id) {
+
+            var delPozo = $resource( "/pozo/" + id); // a RESTful-capable resource object
+            delPozo.delete();
+            // Find index of the user
+            var index = $scope.pozos.indexOf(id);
+            // Remove user from array
+            $scope.pozos.splice(index, 1);
+
+            console.log( "/pozo/" + id);
+        };
     }]);
 
-// the create controller
-//     mod.controller("campoCreateCtrl", ["$scope", "$resource", "$timeout",  function($scope, $resource, $timeout) {
-//
-//         $scope.save = function() {
-//             var createCampo = $resource("/campos"); // a RESTful-capable resource object
-//             createCampo.save($scope.campo); // $scope.region comes from the detailForm in public/html/detail.html
-//             $timeout(function() { $scope.go('/campos'); }); // go back to public/html/main.html
-//         };
-//     }]);
+    // the create controller
+    mod.controller("crearPozoCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
+
+        $scope.save = function() {
+            var crearPozo = $resource("/campo/"+$routeParams.id+"/pozo"); // a RESTful-capable resource object
+            crearPozo.save($scope.pozo); // $scope.campo comes from the detailForm in public/html/detail.html
+            $timeout(function() { $scope.go('/campo'); }); // go back to public/html/main.html
+        };
+    }]);
 
 // the edit controller
 //     mod.controller("regionEditCtrl", ["$scope", "$resource", "$routeParams", "$timeout", "apiUrl", function($scope, $resource, $routeParams, $timeout, apiUrl) {
@@ -49,12 +62,6 @@
 //             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
 //         };
 //
-//         // to delete a region
-//         $scope.delete = function() {
-//             var DeleteRegion = $resource( apiUrl +"/regiones/" + $routeParams.id); // a RESTful-capable resource object
-//             DeleteRegion.delete();
-//             $timeout(function() { $scope.go('/region'); }); // go back to public/html/main.html
-//         };
 //     }]);
 
 })(window.angular)

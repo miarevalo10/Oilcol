@@ -24,6 +24,7 @@ DELETE  /campo/:id                  controllers.CampoController.deleteCampo(id :
 PUT     /campo/:id                  controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
+GET     /pozo                       controllers.PozoController.getAllPozos()
 GET     /campo/:idCampo/pozo        controllers.PozoController.getPozos(idCampo : Long)
 GET     /pozo/:id                   controllers.PozoController.getPozo(id : Long)
 POST    /campo/:idCampo/pozo        controllers.PozoController.createPozo(idCampo : Long)
