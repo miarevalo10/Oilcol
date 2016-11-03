@@ -2,46 +2,45 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Map to views
-GET      /views/*any             controllers.ApplicationController.loadPublicHTML(any)
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+
 
 
 #Servicios Campos
-GET     /campo                      controllers.CampoController.getCampos()
-GET     /campo/:id                  controllers.CampoController.getCampo(id : Long)
-POST    /campo                      controllers.CampoController.createCampo()
-DELETE  /campo/:id                  controllers.CampoController.deleteCampo(id : Long)
-PUT     /campo/:id                  controllers.CampoController.updateCampo(id : Long)
+GET     /api/campo                      controllers.CampoController.getCampos()
+GET     /api/campo/:id                  controllers.CampoController.getCampo(id : Long)
+POST    /api/campo                      controllers.CampoController.createCampo()
+DELETE  /api/campo/:id                  controllers.CampoController.deleteCampo(id : Long)
+PUT     /api/campo/:id                  controllers.CampoController.updateCampo(id : Long)
 
 #Servicios Pozos
-GET     /pozo                       controllers.PozoController.getAllPozos()
-GET     /campo/:idCampo/pozo        controllers.PozoController.getPozos(idCampo : Long)
-GET     /pozo/:id                   controllers.PozoController.getPozo(id : Long)
-POST    /campo/:idCampo/pozo        controllers.PozoController.createPozo(idCampo : Long)
-DELETE  /pozo/:id                   controllers.PozoController.deletePozo(id: Long)
-PUT     /pozo/:id                   controllers.PozoController.updatePozo(id : Long)
+GET     /api/pozo                       controllers.PozoController.getAllPozos()
+GET     /api/campo/:idCampo/pozo        controllers.PozoController.getPozos(idCampo : Long)
+GET     /api/pozo/:id                   controllers.PozoController.getPozo(id : Long)
+POST    /api/campo/:idCampo/pozo        controllers.PozoController.createPozo(idCampo : Long)
+DELETE  /api/pozo/:id                   controllers.PozoController.deletePozo(id: Long)
+PUT     /api/pozo/:id                   controllers.PozoController.updatePozo(id : Long)
 
 #Servicios Sensores
-GET     /pozo/:idPozo/sensor        controllers.SensorController.getSensores(idPozo : Long)
-GET     /sensor/:id                 controllers.SensorController.getSensor(id : Long)
-POST    /pozo/:idPozo/sensor        controllers.SensorController.createSensor(idPozo : Long)
-DELETE  /sensor/:id                 controllers.SensorController.deleteSensor(id : Long)
-PUT     /sensor/:id                 controllers.SensorController.updateSensor(id : Long)
+GET     /api/pozo/:idPozo/sensor        controllers.SensorController.getSensores(idPozo : Long)
+GET     /api/sensor/:id                 controllers.SensorController.getSensor(id : Long)
+POST    /api/pozo/:idPozo/sensor        controllers.SensorController.createSensor(idPozo : Long)
+DELETE  /api/sensor/:id                 controllers.SensorController.deleteSensor(id : Long)
+PUT     /api/sensor/:id                 controllers.SensorController.updateSensor(id : Long)
 
 #Servicios Registros
-GET     /sensor/:idSensor/registro  controllers.RegistroController.getRegistros(idSensor : Long)
-GET     /registro/:id               controllers.RegistroController.getRegistro(id : Long)
-POST    /sensor/:idSensor/registro  controllers.RegistroController.createRegistro(idSensor : Long)
-DELETE  /registro/:id               controllers.RegistroController.deleteRegistro(id : Long)
-PUT     /registro/:id               controllers.RegistroController.updateRegistro(id : Long)
-GET     /registro/porFecha/         controllers.RegistroController.getRegistroFecha(from : String, to : String)
+GET     /api/sensor/:idSensor/registro  controllers.RegistroController.getRegistros(idSensor : Long)
+GET     /api/registro/:id               controllers.RegistroController.getRegistro(id : Long)
+POST    /api/sensor/:idSensor/registro  controllers.RegistroController.createRegistro(idSensor : Long)
+DELETE  /api/registro/:id               controllers.RegistroController.deleteRegistro(id : Long)
+PUT     /api/registro/:id               controllers.RegistroController.updateRegistro(id : Long)
+GET     /api/registro/porFecha/         controllers.RegistroController.getRegistroFecha(from : String, to : String)
