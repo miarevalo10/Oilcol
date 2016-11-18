@@ -9,7 +9,8 @@
         "campoModule",
         "pozoModule",
         "sensorModule",
-        "registroModule"
+        "registroModule",
+        "loginModule"
     ]);
 
     mod.config(["$routeProvider", function($routeProvider) {
@@ -46,6 +47,9 @@
         }).when("/sensor/:idSensor/update", {//edita un sensor
             templateUrl: "/modules/sensor/crearSensor.html",
             controller: "editarSensorCtrl"
+        }).when("/login", {//maneja lo del login
+            templateUrl: "/modules/login/login.html",
+            controller: "loginCtrl"
         });
 
         // .when("/inicio", {

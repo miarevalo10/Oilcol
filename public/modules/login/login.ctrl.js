@@ -7,9 +7,75 @@
     var mod = ng.module("loginModule");
 
 // the list controller
-    mod.controller("loginCtrl", ["$scope", "$resource", function($scope, $resource)
+    mod.controller("loginCtrl", ["$scope", "$resource", function($scope)
     {
          console.log("ENtrooooooooooooooooooooooooooooooooooooo");
+
+        // var ref = new Firebase("https://oilcol-17ece.firebaseio.com");
+
+
+        $scope.signIn = function() {
+            var email = $scope.username;
+            var password = $scope.password;
+            if (!email || !password) {
+                return console.log('username and password required');
+            }
+            // Sign in user
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log('signIn error', error);
+                    // ...
+                });
+        };
+
+        $scope.register = function() {
+            var email = $scope.email;
+            var password = $scope.password;
+            if (!email || !password) {
+                return console.log('email and password required');
+            }
+            // Register user
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .catch(function(error) {
+                    console.log('register error', error);
+                    if (error.code === 'auth/email-already-in-use') {
+                        var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                        app.signInWithGoogle()
+                            .then(function() {
+                                firebase.auth().currentUser.link(credential)
+                                    .then(function(user) {
+                                        console.log("Account linking success", user);
+                                    }, function(error) {
+                                        console.log("Account linking error", error);
+                                    });
+                            });
+                    }
+                });
+        };
+
+        $scope.signInWithGoogle = function() {
+            // Sign in with Google
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+            return firebase.auth().signInWithPopup(provider)
+                .catch(function(error) {
+                    console.log('Google sign in error', error);
+                });
+        };
+
+        $scope.signOut = function() {
+        // Sign out
+        firebase.auth().signOut();
+                };
+        // Listen to auth state changes
+        firebase.auth().onAuthStateChanged(function(user) {
+            $scope.user = user;
+            console.log('user', user);
+        });
 
         /*
         * Copyright 2016 Google Inc. All Rights Reserved.
