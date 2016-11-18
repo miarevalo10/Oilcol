@@ -8,7 +8,7 @@
 
 // the list controller
     mod.controller("campoCtrl", ["$scope", "$resource", function($scope, $resource) {
-        var campos = $resource("/api/campo"); // a RESTful-capable resource object
+        var campos = $resource("/campo"); // a RESTful-capable resource object
         $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
 
         $scope.delete = function(id) {
