@@ -11,8 +11,12 @@
         $scope.idSensor = $routeParams.idSensor;
         $scope.fecha = false;
         var registro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
-        $scope.registros = registro.query(); // for the list of regiones in public/html/main.html
-        console.log("/sensor/"+$routeParams.idSensor+"/registro");
+
+        refresh();
+        function refresh(){
+            $scope.registros = registro.query(); // for the list of regiones in public/html/main.html
+            console.log("/sensor/"+$routeParams.idSensor+"/registro");
+        }
         var date =  new Date();
 
         $scope.delete = function(id) {
@@ -35,16 +39,14 @@
 
             // console.log( "/registro/" + id);
         };
-    }]);
-
-    // the create controller
-    mod.controller("crearRegistroCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
 
         $scope.save = function() {
             var crearRegistro = $resource("/sensor/"+$routeParams.idSensor+"/registro"); // a RESTful-capable resource object
-            crearRegistro.save($scope.sensor); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
-            $timeout(function() { $scope.go('/sensor/'+$routeParams.id+'/registro'); }); // go back to public/html/main.html
+            crearRegistro.save($scope.sensor).$promise.then(function() { $scope.go('/sensor/'+$routeParams.id+'/registro'); });
+            // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
+            // go back to public/html/main.html
         };
+
     }]);
 
 // the edit controller

@@ -18,13 +18,13 @@
             controller: "campoCtrl"
          }).when("/campo/create", {//Crea un campo
             templateUrl: "/modules/campo/crearCampo.html",
-            controller: "crearCampoCtrl"
+            controller: "campoCtrl"
         }).when("/campo/:idCampo/update", {//edita un campo
             templateUrl: "/modules/campo/crearCampo.html",
             controller: "editarCampoCtrl"
         }).when("/campo/:idCampo/pozo/create", { //crea un pozo, dado un campo
             templateUrl: "/modules/pozo/crearPozo.html",
-            controller: "crearPozoCtrl"
+            controller: "pozoCtrl"
         }).when("/campo/:idCampo/pozo", { //pozos de un campo
             templateUrl: "/modules/pozo/pozo.html",
             controller: "pozoCtrl"
@@ -35,14 +35,14 @@
             templateUrl: "/modules/sensor/sensor.html",
             controller: "sensorCtrl"
         }).when("/pozo/:idPozo/sensor/create", { //crea un sensor, dado un pozo
-            templateUrl: "/modules/sensor/crearSensor.hmtl",
-            controller: "crearSensorCtrl"
+            templateUrl: "/modules/sensor/crearSensor.html",
+            controller: "sensorCtrl"
         }).when("/sensor/:idSensor/registro", { //registros de un sensor
             templateUrl: "/modules/registro/registro.html",
             controller: "registroCtrl"
         }).when("/sensor/:idSensor/registro/create", { //crea un registro, dado un sensor
             templateUrl: "/modules/registro/crearRegistro.html",
-            controller: "crearSensorCtrl"
+            controller: "registroCtrl"
         }).when("/sensor/:idSensor/update", {//edita un sensor
             templateUrl: "/modules/sensor/crearSensor.html",
             controller: "editarSensorCtrl"

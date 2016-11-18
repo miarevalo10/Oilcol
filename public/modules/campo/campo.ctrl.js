@@ -11,6 +11,11 @@
         var campos = $resource("/campo"); // a RESTful-capable resource object
         $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
 
+        refresh();
+        function refresh(){
+            $scope.campos = campos.query(); // for the list of regiones in public/html/main.html
+        }
+
         $scope.delete = function(id) {
 
             var delCampo = $resource( "/campo/" + id); // a RESTful-capable resource object
@@ -23,17 +28,12 @@
 
             console.log("Se eliminó el campo " + id );
         };
-    }]);
-
-// the create controller
-    mod.controller("crearCampoCtrl", ["$scope", "$resource", "$timeout",  function($scope, $resource, $timeout) {
-
         $scope.save = function() {
             var createCampo = $resource("/campo"); // a RESTful-capable resource object
-            createCampo.save($scope.campo); // $scope.region comes from the detailForm in public/html/detail.html
-            $timeout(function() { $scope.go('reportes/campo'); }); // go back to public/html/main.html
+            createCampo.save($scope.campo).$promise.then(function() { $scope.go('reportes/campo'); }); // go back to public/html/main.html
         };
     }]);
+
 
 // the edit controller
      mod.controller("editarCampoCtrl", ["$scope", "$resource", "$routeParams", "$timeout",  function($scope, $resource, $routeParams, $timeout) {

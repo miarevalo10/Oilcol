@@ -10,8 +10,11 @@
     mod.controller("pozoCtrl", ["$scope", "$resource","$routeParams" ,function($scope, $resource,$routeParams) {
         $scope.idCampo = $routeParams.idCampo;
         var pozos = $resource("/campo/"+$routeParams.idCampo+"/pozo"); // a RESTful-capable resource object
-        $scope.pozos = pozos.query(); // for the list of regiones in public/html/main.html
-        console.log("/campo/"+$routeParams.idCampo+"/pozo")
+        refresh();
+        function refresh(){
+            $scope.pozos = pozos.query(); // for the list of regiones in public/html/main.html
+            console.log("/campo/"+$routeParams.idCampo+"/pozo")
+        }
 
         $scope.delete = function(id) {
 
@@ -24,17 +27,14 @@
 
             console.log( "/pozo/" + id);
         };
-    }]);
-
-    // the create controller
-    mod.controller("crearPozoCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
-
         $scope.save = function() {
             var crearPozo = $resource("/campo/"+$routeParams.idCampo+"/pozo"); // a RESTful-capable resource object
-            crearPozo.save($scope.pozo); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
-            $timeout(function() { $scope.go('/campo/'+$routeParams.idCampo+'/pozo'); }); // go back to public/html/main.html
+            crearPozo.save($scope.pozo)
+                .$promise.then(function() { $scope.go('/campo/'+$routeParams.idCampo+'/pozo'); }); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
         };
     }]);
+
+
 
 // the edit controller
     mod.controller("editarPozoCtrl", ["$scope", "$resource", "$routeParams", "$timeout",  function($scope, $resource, $routeParams, $timeout) {

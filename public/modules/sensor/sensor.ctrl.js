@@ -12,6 +12,12 @@
         $scope.sensores = sensor.query(); // for the list of regiones in public/html/main.html
         console.log("/pozo/"+$routeParams.idPozo+"/sensor")
 
+        refresh();
+        function refresh(){
+            $scope.sensores = sensor.query(); // for the list of regiones in public/html/main.html
+            console.log("/pozo/"+$routeParams.idPozo+"/sensor")
+        }
+
         $scope.delete = function(id) {
 
             var delSensor = $resource( "/sensor/" + id); // a RESTful-capable resource object
@@ -23,17 +29,14 @@
 
             console.log( "/sensor/" + id);
         };
-    }]);
-
-    // the create controller
-    mod.controller("crearSensorCtrl", ["$scope", "$resource", "$timeout", "$routeParams",function($scope, $resource, $timeout, $routeParams) {
 
         $scope.save = function() {
             var crearSensor = $resource("/pozo/"+$routeParams.idPozo+"/sensor"); // a RESTful-capable resource object
-            crearSensor.save($scope.sensor); // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
-            $timeout(function() { $scope.go('/pozo/'+$routeParams.idPozo+'/sensor'); }); // go back to public/html/main.html
+            crearSensor.save($scope.sensor) // $scope.pozo comes from  crearPozo in public/modules/pozo/crearSensor.html
+            .$promise.then(function() { $scope.go('/pozo/'+$routeParams.idPozo+'/sensor'); }); // go back to public/html/main.html
         };
     }]);
+
 
 // the edit controller
     mod.controller("editarSensorCtrl", ["$scope", "$resource", "$routeParams", "$timeout",  function($scope, $resource, $routeParams, $timeout) {
