@@ -3,7 +3,7 @@
         <div class="box-header" data-original-title>
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Campos</h2>
             <div class="box-icon">
-                <a ng-href="/campo/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
+                <a href="#/campo/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
             </div>
         </div>
         <div class="box-content">
@@ -20,10 +20,10 @@
                     <td class="center" data-ng-model="campo.id">{{campo.id}}</td>
                     <td class="center" data-ng-model="campo.region">{{campo.region}}</td>
                     <td class="center">
-                        <a class="btn btn-success" ng-href="/campo/{{campo.id}}/pozo">
+                        <a class="btn btn-success" href="#/campo/{{campo.id}}/pozo">
                             <i class="halflings-icon white zoom-in"></i>
                         </a>
-                        <a class="btn btn-info" ng-href="/campo/{{campo.id}}/update">
+                        <a class="btn btn-info" href="#/campo/{{campo.id}}/update">
                             <i class="halflings-icon white edit"></i>
                         </a>
                         <a class="btn btn-danger" data="{{campo.id}}" data-ng-click="delete(campo.id)" >

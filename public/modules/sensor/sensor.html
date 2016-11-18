@@ -3,7 +3,7 @@
         <div class="box-header" data-original-title>
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Sensores del pozo{{idPozo}}</h2>
             <div class="box-icon">
-                <a ng-href="/pozo/{{idPozo}}/sensor/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
+                <a href="#/pozo/{{idPozo}}/sensor/create" class="btn-minimize"><i class="halflings-icon plus"></i></a>
             </div>
         </div>
         <div class="box-content">
@@ -20,10 +20,10 @@
                     <td class="center">{{sensor.id}}</td>
                     <td class="center">{{sensor.tipo}}</td>
                     <td class="center">
-                        <a class="btn btn-success" ng-href="/sensor/{{sensor.id}}/registro">
+                        <a class="btn btn-success" href="#/sensor/{{sensor.id}}/registro">
                             <i class="halflings-icon white zoom-in"></i>
                         </a>
-                        <a class="btn btn-info"  ng-href="/sensor/{{sensor.id}}/update">
+                        <a class="btn btn-info"  href="#/sensor/{{sensor.id}}/update">
                             <i class="halflings-icon white edit"></i>
                         </a>
                         <a class="btn btn-danger" data="{{sensor.id}}" data-ng-click="delete(sensor.id)" >
