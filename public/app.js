@@ -6,6 +6,7 @@
     var mod = ng.module("app",[
         "ngResource",
         "ngRoute",
+        "firebase",
         "campoModule",
         "pozoModule",
         "sensorModule",

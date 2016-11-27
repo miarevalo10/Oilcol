@@ -9,12 +9,13 @@
 // the list controller
     mod.controller("loginCtrl", ["$scope", "$resource", function($scope)
     {
-         console.log("ENtrooooooooooooooooooooooooooooooooooooo");
+         console.log("Entro login controller");
 
         // var ref = new Firebase("https://oilcol-17ece.firebaseio.com");
 
 
         $scope.signIn = function() {
+            console.log("Entra al método singIn");
             var email = $scope.username;
             var password = $scope.password;
             if (!email || !password) {
@@ -24,6 +25,7 @@
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .catch(function(error) {
                     // Handle Errors here.
+                    console.log("Hay error con el login");
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     console.log('signIn error', error);
@@ -32,7 +34,7 @@
         };
 
         $scope.register = function() {
-            var email = $scope.email;
+            var email = $scope.username;
             var password = $scope.password;
             if (!email || !password) {
                 return console.log('email and password required');
@@ -71,8 +73,10 @@
         // Sign out
         firebase.auth().signOut();
                 };
+
         // Listen to auth state changes
         firebase.auth().onAuthStateChanged(function(user) {
+            console.log("Entra a cambiar el estado")
             $scope.user = user;
             console.log('user', user);
         });
@@ -169,17 +173,17 @@
 
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
-        firebase.auth().onAuthStateChanged(function(user) {
+        //firebase.auth().onAuthStateChanged(function(user) {
             // The observer is also triggered when the user's token has expired and is
             // automatically refreshed. In that case, the user hasn't changed so we should
             // not update the UI.
-            if (user && user.uid == currentUid) {
-                return;
-            }
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('loaded').style.display = 'block';
-            user ? handleSignedInUser(user) : handleSignedOutUser();
-        });
+        //    if (user && user.uid == currentUid) {
+           //     return;
+         //   }
+        //    document.getElementById('loading').style.display = 'none';
+        //    document.getElementById('loaded').style.display = 'block';
+       //     user ? handleSignedInUser(user) : handleSignedOutUser();
+       // });
 
         /**
          * Deletes the user's account.
